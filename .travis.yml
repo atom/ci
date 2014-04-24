@@ -1,2 +1,3 @@
 language: objective-c
+
 script: 'curl -s -H "Accept: application/vnd.github.v3.raw" https://api.github.com/repos/atom/ci/contents/build-package.sh | sh'
