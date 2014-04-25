@@ -29,9 +29,8 @@ the latest Atom release [here](https://atom.io/releases).
 
 The `.travis.yml` template downloads the [build-package.sh](https://raw.githubusercontent.com/atom/ci/master/build-package.sh)
 from this repository.  This script then downloads node, the latest Atom release,
-and runs the `apm test` command to run your package's specs.
-
-You can run `apm help test` to learn more about that command.
+and runs the `apm test` command to run your package's specs. You can run
+`apm help test` to learn more about that command.
 
 The `apm test` command assumes your package is using [Jasmine](http://jasmine.github.io)
 specs. You can run the specs locally using Atom's spec runner UI from the
