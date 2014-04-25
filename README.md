@@ -2,10 +2,37 @@
 
 Templates for building your Atom package using [Travis CI](https://travis-ci.org).
 
-Copy the [.travis.yml](https://raw.githubusercontent.com/atom/ci/master/.travis.yml)
-to the root of your package's repository and then setup the [Travis hook](http://docs.travis-ci.com/user/getting-started/#Step-two%3A-Activate-GitHub-Webhook)
-to get your package building.
+## Setting up CI for your package
 
-The [build-package.sh](https://raw.githubusercontent.com/atom/ci/master/build-package.sh)
-script downloads the latest version of Atom and runs your package's specs using
-the `apm test` command.
+* Sign up for an account on [Travis CI](https://travis-ci.org)
+* Copy this [.travis.yml](https://raw.githubusercontent.com/atom/ci/master/.travis.yml)
+  to the root of your package's repository.
+* Setup the [Travis hook](http://docs.travis-ci.com/user/getting-started/#Step-two%3A-Activate-GitHub-Webhook)
+  on your package's repository.
+* :boom: Your package will now build. You can see an example of a configured
+  package [here](https://travis-ci.org/atom/wrap-guide).
+
+## FAQ
+
+### Why is the language set to objective-c?
+
+Atom has only been released for Mac OS X and setting the `language` to
+`objective-c` tells Travis to run the build on a Mac OS X worker. You can
+read more about it [here](http://blog.travis-ci.com/introducing-mac-ios-rubymotion-testing).
+
+### What version of Atom is used to run the specs?
+
+It was always download the latest available version. You can read more about
+the latest Atom release [here](https://atom.io/releases).
+
+### How does it it work?
+
+The `.travis.yml` template downloads the [build-package.sh](https://raw.githubusercontent.com/atom/ci/master/build-package.sh)
+from this repository.  This script then downloads node, the latest Atom release,
+and runs the `apm test` command to run your package's specs.
+
+You can run `apm help test` to learn more about that command.
+
+### What does the output look like?
+
+Take a look at an example package build [here](https://travis-ci.org/atom/wrap-guide/builds/23774579).
