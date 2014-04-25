@@ -33,6 +33,10 @@ and runs the `apm test` command to run your package's specs.
 
 You can run `apm help test` to learn more about that command.
 
+The `apm test` command assumes your package is using [Jasmine](http://jasmine.github.io)
+specs. You can run the specs locally using Atom's spec runner UI from the
+_View > Developer > Run Package Specs_ menu or by pressing `cmd-ctrl-alt-p`.
+
 ### What does the output look like?
 
 Take a look at an example package build [here](https://travis-ci.org/atom/wrap-guide/builds/23774579).
