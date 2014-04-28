@@ -39,3 +39,8 @@ _View > Developer > Run Package Specs_ menu or by pressing `cmd-ctrl-alt-p`.
 ### What does the output look like?
 
 Take a look at an example package build [here](https://travis-ci.org/atom/wrap-guide/builds/23774579).
+
+### What packages use this?
+
+Click [here](https://github.com/search?q=https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+path%3A.travis.yml&type=Code) to
+see all the Atom packages with Travis CI enabled.
