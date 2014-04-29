@@ -22,7 +22,7 @@ read more about it [here](http://blog.travis-ci.com/introducing-mac-ios-rubymoti
 
 ### What version of Atom is used to run the specs?
 
-It was always download the latest available version. You can read more about
+It will always download the latest available version. You can read more about
 the latest Atom release [here](https://atom.io/releases).
 
 ### How does it it work?
