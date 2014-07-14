@@ -69,4 +69,4 @@ package's specs.
 ### What packages use this?
 
 * [OS X @ Travis CI](https://github.com/search?q=https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+path%3A.travis.yml&type=Code)
-* [Windows @ AppVeyor](https://github.com/search?q=%23+Atom+Package+CI+For+AppVeyor+path%3Aappveyor.yml&type=Code&ref=searchresults)
+* [Windows @ AppVeyor](https://github.com/search?q=Atom-AppVeyor-CI-Template+path%3Aappveyor.yml&type=Code&ref=searchresults)

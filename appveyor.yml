@@ -1,4 +1,4 @@
-# Atom Package CI For AppVeyor
+# Atom-AppVeyor-CI-Template
 
 # version format
 version: "{build}"
