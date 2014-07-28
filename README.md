@@ -24,7 +24,7 @@ Templates for building your Atom package and running its specs:
 * Copy [appveyor.yml](https://raw.githubusercontent.com/atom/ci/master/appveyor.yml)
   to the root of your package's repository
 * :boom: Your package will now build and run its specs; you can see an example
-  of a configured package [here](https://ci.appveyor.com/project/joefitzgerald/go-plus)
+  of a configured package [here](https://ci.appveyor.com/project/kevinsawicki/wrap-guide)
 
 ## FAQ
 
