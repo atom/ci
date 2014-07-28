@@ -20,7 +20,7 @@ Templates for building your Atom package and running its specs:
 
 * Sign up for an account on [AppVeyor](http://appveyor.com)
 * Add a new project
-* Ensure the `Ignore configuration in appveyor.yml` setting (`Settings >
+* Ensure the `Ignore appveyor.yml` setting (`Settings >
   General`) is *unchecked*
 * Copy [appveyor.yml](https://raw.githubusercontent.com/atom/ci/master/appveyor.yml)
   to the root of your package's repository
