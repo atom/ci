@@ -63,7 +63,7 @@ package's specs.
 ### What does the output look like?
 
 * [OS X @ Travis CI](https://travis-ci.org/atom/wrap-guide/builds/23774579)
-* [Windows @ AppVeyor](https://ci.appveyor.com/project/joefitzgerald/go-plus/build/46)
+* [Windows @ AppVeyor](https://ci.appveyor.com/project/kevinsawicki/wrap-guide/build/2)
 
 ### What packages use this?
 
