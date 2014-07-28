@@ -68,4 +68,4 @@ package's specs.
 ### What packages use this?
 
 * [OS X @ Travis CI](https://github.com/search?q=https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+path%3A.travis.yml&type=Code)
-* Windows @ AppVeyor: TBD
+* [Windows @ AppVeyor](https://github.com/search?q="cinst+atom"+extension%3Ayml&type=Code)
