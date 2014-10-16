@@ -14,7 +14,7 @@ mkdir atom
 unzip -q atom.zip -d atom
 
 echo "Using Atom version:"
-./atom/Atom.app/Contents/Resources/app/atom.sh -v
+ATOM_PATH=./atom ./atom/Atom.app/Contents/Resources/app/atom.sh -v
 
 echo "Downloading package dependencies..."
 atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm update
