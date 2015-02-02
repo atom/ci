@@ -31,7 +31,7 @@ Templates for building your Atom package and running its specs:
 ### Why is the language set to objective-c for Travis CI?
 
 Atom has only been released for OS X and Windows and setting the `language`
-to `objective-c` tells Travis CI to run the build on a OS X worker. You can
+to `objective-c` tells Travis CI to run the build on an OS X worker. You can
 read more about it [here](http://blog.travis-ci.com/introducing-mac-ios-rubymotion-testing).
 
 ### What version of Atom is used to run the specs?
