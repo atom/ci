@@ -17,7 +17,8 @@ echo "Using Atom version:"
 ATOM_PATH=./atom ./atom/Atom.app/Contents/Resources/app/atom.sh -v
 
 echo "Downloading package dependencies..."
-atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm update
+atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm clean
+atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm install
 
 echo "Running specs..."
 ATOM_PATH=./atom atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm test --path atom/Atom.app/Contents/Resources/app/atom.sh
