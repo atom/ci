@@ -16,6 +16,19 @@ echo "Downloading package dependencies..."
 atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm clean
 atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm install
 
+if [ -f ./node_modules/.bin/coffeelint ]; then
+  if [ -d ./lib ]; then
+    echo "Linting package..."
+    ./node_modules/.bin/coffeelint lib
+    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+  fi
+  if [ -d ./spec ]; then
+    echo "Linting package specs..."
+    ./node_modules/.bin/coffeelint spec
+    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+  fi
+fi
+
 echo "Running specs..."
 ATOM_PATH=./atom atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm test --path atom/Atom.app/Contents/Resources/app/atom.sh
 
