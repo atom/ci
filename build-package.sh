@@ -1,10 +1,5 @@
 #!/bin/sh
 
-echo "Downloading node v0.10.22..."
-curl -s -O http://nodejs.org/dist/v0.10.22/node-v0.10.22-darwin-x64.tar.gz
-tar -zxf node-v0.10.22-darwin-x64.tar.gz
-export PATH=$PATH:$PWD/node-v0.10.22-darwin-x64/bin
-
 echo "Downloading latest Atom release..."
 curl -s -L "https://atom.io/download/mac" \
   -H 'Accept: application/octet-stream' \
@@ -12,6 +7,7 @@ curl -s -L "https://atom.io/download/mac" \
 
 mkdir atom
 unzip -q atom.zip -d atom
+export PATH=$PWD/atom/Atom.app/Contents/Resources/app/apm/bin:$PATH
 
 echo "Using Atom version:"
 ATOM_PATH=./atom ./atom/Atom.app/Contents/Resources/app/atom.sh -v
@@ -21,9 +17,15 @@ atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm clean
 atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm install
 
 if [ -f ./node_modules/.bin/coffeelint ]; then
-  echo "Linting package..."
-  ./node_modules/.bin/coffeelint lib spec
-  rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+  if [ -f ./lib]; then
+    echo "Linting package..."
+    ./node_modules/.bin/coffeelint lib
+    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+  fi
+  if [ -f ./spec]; then
+    echo "Linting package specs..."
+    ./node_modules/.bin/coffeelint spec
+  fi
 fi
 
 echo "Running specs..."
