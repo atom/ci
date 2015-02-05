@@ -1,11 +1,5 @@
 #!/bin/sh
 
-echo "Downloading io.js..."
-curl -s -o iojs.tar.gz https://iojs.org/dist/v1.1.0/iojs-v1.1.0-darwin-x64.tar.gz
-tar -zxf iojs.tar.gz
-export PATH=$PWD/iojs/bin:$PATH
-node -v
-
 echo "Downloading latest Atom release..."
 curl -s -L "https://atom.io/download/mac" \
   -H 'Accept: application/octet-stream' \
@@ -13,6 +7,7 @@ curl -s -L "https://atom.io/download/mac" \
 
 mkdir atom
 unzip -q atom.zip -d atom
+export PATH=$PWD/atom/Atom.app/Contents/Resources/app/apm/bin:$PATH
 
 echo "Using Atom version:"
 ATOM_PATH=./atom ./atom/Atom.app/Contents/Resources/app/atom.sh -v
