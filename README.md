@@ -28,6 +28,17 @@ Templates for building your Atom package and running its specs:
 
 ## FAQ
 
+### How do I install other Atom packages that my package build depends on?
+
+Set the `APM_TEST_PACKAGES` environment variable in your `.travis.yml` file
+to a space-separated list of packages to install before your package's tests
+run.
+
+```yml
+env:
+  - APM_TEST_PACKAGES="autocomplete-plus some-other-package-here"
+```
+
 ### Why is the language set to objective-c for Travis CI?
 
 Atom has only been released for OS X and Windows and setting the `language`
