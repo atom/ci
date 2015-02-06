@@ -21,7 +21,6 @@ TEST_PACKAGES="${APM_TEST_PACKAGES:=none}"
 if [ "$TEST_PACKAGES" != "none" ]; then
   echo "Installing atom package dependencies..."
   for pack in $TEST_PACKAGES ; do
-    echo "Installing $pack..."
     atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm install $pack
   done
 fi
