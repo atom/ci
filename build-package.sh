@@ -52,9 +52,16 @@ if [ -f ./node_modules/.bin/eslint ]; then
 fi
 
 if [ -f ./node_modules/.bin/standard ]; then
-  echo "Linting package with standard..."
-  ./node_modules/.bin/standard
-  rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+  if [ -d ./lib ]; then
+    echo "Linting package..."
+    ./node_modules/.bin/standard lib
+    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+  fi
+  if [ -d ./spec ]; then
+    echo "Linting package specs..."
+    ./node_modules/.bin/standard spec
+    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+  fi
 fi
 
 echo "Running specs..."
