@@ -51,6 +51,11 @@ if [ -f ./node_modules/.bin/eslint ]; then
   fi
 fi
 
+if [ -f ./node_modules/.bin/standard ]; then
+  echo "Linting package with standard..."
+  ./node_modules/.bin/standard
+  rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+fi
 
 echo "Running specs..."
 ATOM_PATH=./atom atom/Atom.app/Contents/Resources/app/apm/node_modules/.bin/apm test --path atom/Atom.app/Contents/Resources/app/atom.sh
