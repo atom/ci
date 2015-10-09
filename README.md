@@ -4,6 +4,7 @@ Templates for building your Atom package and running its specs:
 
 * OS X: Using [Travis CI](https://travis-ci.org)
 * Windows: Using [AppVeyor](http://appveyor.com)
+* Linux Using [CircleCI](https://circleci.com)
 
 ## Setting up CI for your package
 
@@ -25,6 +26,13 @@ Templates for building your Atom package and running its specs:
   to the root of your package's repository
 * :boom: Your package will now build and run its specs; you can see an example
   of a configured package [here](https://ci.appveyor.com/project/kevinsawicki/wrap-guide)
+
+### CircleCI
+
+* Sign up for an account on [CircleCI](https://circleci.com)
+* Add a new project
+* Copy [circle.yml](https://raw.githubusercontent.com/atom/ci/master/circle.yml) to the root of your package's repository
+* :boom: Your package will now build and run its specs; you can see an example of a configured package [here](https://circleci.com/gh/levlaz/wrap-guide)
 
 ## FAQ
 
@@ -71,10 +79,17 @@ download and install the [latest version of Atom](https://chocolatey.org/package
 are available. Finally, the script runs the `apm test` command to run your
 package's specs.
 
+#### CircleCI
+
+The `circle.yml` template downloads the [Latest version of Atom] for Ubuntu and installs it using apt. `apm install` is run in your package directory to ensure any node dependencies
+are available. Finally, the script runs the `apm test` command to run your package's specs.
+
+
 ### What does the output look like?
 
 * [OS X @ Travis CI](https://travis-ci.org/atom/wrap-guide/builds/23774579)
 * [Windows @ AppVeyor](https://ci.appveyor.com/project/kevinsawicki/wrap-guide/build/2)
+* [Linux @ CircleCI](https://circleci.com/gh/levlaz/wrap-guide/1)
 
 ### What packages use this?
 
