@@ -4,7 +4,7 @@ Templates for building your Atom package and running its specs:
 
 * OS X: Using [Travis CI](https://travis-ci.org)
 * Windows: Using [AppVeyor](http://appveyor.com)
-* Linux Using [CircleCI](https://circleci.com)
+* Ubuntu Linux: Using [CircleCI](https://circleci.com)
 
 ## Setting up CI for your package
 
@@ -81,7 +81,7 @@ package's specs.
 
 #### CircleCI
 
-The `circle.yml` template downloads the [Latest version of Atom] for Ubuntu and installs it using apt. `apm install` is run in your package directory to ensure any node dependencies
+The `circle.yml` template downloads the [Latest version of Atom](https://atom.io/download/deb) for Ubuntu and installs it using apt. `apm install` is run in your package directory to ensure any node dependencies
 are available. Finally, the script runs the `apm test` command to run your package's specs.
 
 
@@ -89,7 +89,7 @@ are available. Finally, the script runs the `apm test` command to run your packa
 
 * [OS X @ Travis CI](https://travis-ci.org/atom/wrap-guide/builds/23774579)
 * [Windows @ AppVeyor](https://ci.appveyor.com/project/kevinsawicki/wrap-guide/build/2)
-* [Linux @ CircleCI](https://circleci.com/gh/levlaz/wrap-guide/1)
+* [Ubuntu Linux @ CircleCI](https://circleci.com/gh/levlaz/wrap-guide/1)
 
 ### What packages use this?
 
