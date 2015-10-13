@@ -81,7 +81,7 @@ package's specs.
 
 #### CircleCI
 
-The `circle.yml` template downloads the [Latest version of Atom](https://atom.io/download/deb) for Ubuntu and installs it using apt. `apm install` is run in your package directory to ensure any node dependencies
+The `circle.yml` template downloads the [latest version of Atom](https://atom.io/download/deb) for Ubuntu and installs it using apt. `apm install` is run in your package directory to ensure any node dependencies
 are available. Finally, the script runs the `apm test` command to run your package's specs.
 
 
