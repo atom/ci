@@ -30,7 +30,7 @@ Templates for building your Atom package and running its specs:
 ### CircleCI
 
 * Sign up for an account on [CircleCI](https://circleci.com)
-* Add a new project
+* [Add a new project](https://circleci.com/docs/getting-started)
 * Copy [circle.yml](https://raw.githubusercontent.com/atom/ci/master/circle.yml) to the root of your package's repository
 * :boom: Your package will now build and run its specs; you can see an example of a configured package [here](https://circleci.com/gh/levlaz/wrap-guide)
 
