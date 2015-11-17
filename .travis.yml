@@ -9,3 +9,17 @@ script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.
 
 git:
   depth: 10
+
+sudo: required
+
+os:
+  - linux
+  - osx
+
+env:
+  global:
+    - APM_TEST_PACKAGES=""
+
+  matrix:
+    - ATOM_CHANNEL=stable
+    - ATOM_CHANNEL=beta
