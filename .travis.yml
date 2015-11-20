@@ -8,7 +8,7 @@ script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.
 git:
   depth: 10
 
-sudo: required
+sudo: false
 
 os:
   - linux
@@ -21,3 +21,11 @@ env:
   matrix:
     - ATOM_CHANNEL=stable
     - ATOM_CHANNEL=beta
+
+addons:
+  apt:
+    packages:
+    - build-essential
+    - git
+    - libgnome-keyring-dev
+    - fakeroot
