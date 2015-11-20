@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "Downloading latest Atom release..."
 ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
@@ -14,8 +14,7 @@ if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export ATOM_SCRIPT_NAME="atom.sh"
       export ATOM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh"
     else
-      export ATOM_CHANNEL_CAMELCASE="$(tr '[:lower:]' '[:upper:]' <<< ${ATOM_CHANNEL:0:1})${ATOM_CHANNEL:1}"
-      export ATOM_APP_NAME="Atom ${ATOM_CHANNEL_CAMELCASE}.app"
+      export ATOM_APP_NAME="Atom ${ATOM_CHANNEL}.app"
       export ATOM_SCRIPT_NAME="atom-${ATOM_CHANNEL}"
       export ATOM_SCRIPT_PATH="./atom-${ATOM_CHANNEL}"
       ln -s "./atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh" "${ATOM_SCRIPT_PATH}"
