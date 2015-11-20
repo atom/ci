@@ -7,7 +7,6 @@ if [ "$TRAVIS_OS_NAME" == "osx" ]; then
     curl -s -L "https://atom.io/download/mac?channel=$ATOM_CHANNEL" \
       -H 'Accept: application/octet-stream' \
       -o "atom.zip"
-    ATOM_DOWNLOAD_URL="https://atom.io/download/mac?channel=$ATOM_CHANNEL"
     mkdir atom
     unzip -q atom.zip -d atom
     if [ "$ATOM_CHANNEL" == "stable" ]; then
