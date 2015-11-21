@@ -63,12 +63,12 @@ if [ -f ./node_modules/.bin/coffeelint ]; then
   if [ -d ./lib ]; then
     echo "Linting package..."
     ./node_modules/.bin/coffeelint lib
-    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
   fi
   if [ -d ./spec ]; then
     echo "Linting package specs..."
     ./node_modules/.bin/coffeelint spec
-    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
   fi
 fi
 
@@ -76,12 +76,12 @@ if [ -f ./node_modules/.bin/eslint ]; then
   if [ -d ./lib ]; then
     echo "Linting package..."
     ./node_modules/.bin/eslint lib
-    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
   fi
   if [ -d ./spec ]; then
     echo "Linting package specs..."
     ./node_modules/.bin/eslint spec
-    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
   fi
 fi
 
@@ -89,12 +89,12 @@ if [ -f ./node_modules/.bin/standard ]; then
   if [ -d ./lib ]; then
     echo "Linting package..."
     ./node_modules/.bin/standard lib/**/*.js
-    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
   fi
   if [ -d ./spec ]; then
     echo "Linting package specs..."
     ./node_modules/.bin/standard spec/**/*.js
-    rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
   fi
 fi
 
