@@ -3,13 +3,13 @@
 echo "Downloading latest Atom release..."
 ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
 
-if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+if [ "$TRAVIS_OS_NAME" = "osx" ]; then
     curl -s -L "https://atom.io/download/mac?channel=$ATOM_CHANNEL" \
       -H 'Accept: application/octet-stream' \
       -o "atom.zip"
     mkdir atom
     unzip -q atom.zip -d atom
-    if [ "$ATOM_CHANNEL" == "stable" ]; then
+    if [ "$ATOM_CHANNEL" = "stable" ]; then
       export ATOM_APP_NAME="Atom.app"
       export ATOM_SCRIPT_NAME="atom.sh"
       export ATOM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh"
@@ -29,7 +29,7 @@ else
     /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
     export DISPLAY=":99"
     dpkg-deb -x atom.deb "$HOME/atom"
-    if [ "$ATOM_CHANNEL" == "stable" ]; then
+    if [ "$ATOM_CHANNEL" = "stable" ]; then
       export ATOM_SCRIPT_NAME="atom"
       export APM_SCRIPT_NAME="apm"
     else
