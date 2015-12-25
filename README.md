@@ -2,7 +2,7 @@
 
 Templates for building your Atom package and running its specs:
 
-* OS X: Using [Travis CI](https://travis-ci.org)
+* OS X and Ubuntu Linux: Using [Travis CI](https://travis-ci.org)
 * Windows: Using [AppVeyor](http://appveyor.com)
 * Ubuntu Linux: Using [CircleCI](https://circleci.com)
 
@@ -47,12 +47,6 @@ env:
   - APM_TEST_PACKAGES="autocomplete-plus some-other-package-here"
 ```
 
-### Why is the language set to objective-c for Travis CI?
-
-Atom has only been released for OS X and Windows and setting the `language`
-to `objective-c` tells Travis CI to run the build on an OS X worker. You can
-read more about it [here](http://blog.travis-ci.com/introducing-mac-ios-rubymotion-testing).
-
 ### What version of Atom is used to run the specs?
 
 It will always download the latest available version. You can read more about
@@ -93,5 +87,6 @@ are available. Finally, the script runs the `apm test` command to run your packa
 
 ### What packages use this?
 
-* [OS X @ Travis CI](https://github.com/search?q=https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+path%3A.travis.yml&type=Code)
+* [OS X and Ubuntu Linux @ Travis CI](https://github.com/search?utf8=%E2%9C%93&q=%22curl+-s+https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+|+sh%22+extension%3Ayml&type=Code)
 * [Windows @ AppVeyor](https://github.com/search?q="cinst+atom"+extension%3Ayml&type=Code)
+* [Ubuntu Linux @ CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22wget+-O+atom-amd64.deb+https%3A%2F%2Fatom.io%2Fdownload%2Fdeb%22+extension%3Ayml&type=Code)
