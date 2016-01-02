@@ -98,6 +98,11 @@ if [ -f ./node_modules/.bin/standard ]; then
   fi
 fi
 
-echo "Running specs..."
-"$ATOM_SCRIPT_PATH" --test spec
+if [ -d ./spec ]; then
+  echo "Running specs..."
+  "$ATOM_SCRIPT_PATH" --test spec
+else
+  echo "Missing spec folder! Please consider adding a test suite in `./spec`"
+  exit 1
+fi
 exit
