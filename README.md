@@ -89,4 +89,4 @@ are available. Finally, the script runs the `apm test` command to run your packa
 
 * [OS X and Ubuntu Linux @ Travis CI](https://github.com/search?utf8=%E2%9C%93&q=%22curl+-s+https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+|+sh%22+extension%3Ayml&type=Code)
 * [Windows @ AppVeyor](https://github.com/search?q="cinst+atom"+extension%3Ayml&type=Code)
-* [Ubuntu Linux @ CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22wget+-O+atom-amd64.deb+https%3A%2F%2Fatom.io%2Fdownload%2Fdeb%22+extension%3Ayml&type=Code)
+* [Ubuntu Linux @ CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22sudo+dpkg+--install+atom-amd64.deb+||+true%22+filename%3Acircle.yml&type=Code)
