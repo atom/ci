@@ -1,4 +1,6 @@
 Set-StrictMode -Version Latest
+$script:PACKAGE_FOLDER = "$env:APPVEYOR_BUILD_FOLDER"
+Set-Location $script:PACKAGE_FOLDER
 $script:ATOM_CHANNEL = "stable"
 $script:ATOM_DIRECTORY_NAME = "Atom"
 if ($env:ATOM_CHANNEL -and ($env:ATOM_CHANNEL.tolower() -ne "stable")) {
@@ -8,15 +10,15 @@ if ($env:ATOM_CHANNEL -and ($env:ATOM_CHANNEL.tolower() -ne "stable")) {
     $script:ATOM_DIRECTORY_NAME += $script:ATOM_CHANNEL.substring(1).tolower()
 }
 
-$script:ATOM_EXE_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\atom.exe"
-$script:ATOM_SCRIPT_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\resources\cli\atom.cmd"
-$script:APM_SCRIPT_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin\apm.cmd"
+$script:ATOM_EXE_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\atom.exe"
+$script:ATOM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\cli\atom.cmd"
+$script:APM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin\apm.cmd"
 
 
 function DownloadAtom() {
     Write-Host "Downloading latest Atom release..."
     $source = "https://atom.io/download/windows_zip?channel=$script:ATOM_CHANNEL"
-    $destination = "$PSScriptRoot\atom.zip"
+    $destination = "$script:PACKAGE_FOLDER\atom.zip"
     appveyor DownloadFile $source -FileName $destination
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
@@ -24,8 +26,8 @@ function DownloadAtom() {
 }
 
 function ExtractAtom() {
-    Remove-Item "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME" -Recurse -ErrorAction Ignore
-    Unzip "$PSScriptRoot\atom.zip" "$PSScriptRoot"
+    Remove-Item "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME" -Recurse -ErrorAction Ignore
+    Unzip "$script:PACKAGE_FOLDER\atom.zip" "$script:PACKAGE_FOLDER"
 }
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -77,17 +79,17 @@ function InstallDependencies() {
 }
 
 function RunLinters() {
-    $libpath = "$PSScriptRoot\lib"
+    $libpath = "$script:PACKAGE_FOLDER\lib"
     $libpathexists = Test-Path $libpath
-    $srcpath = "$PSScriptRoot\src"
+    $srcpath = "$script:PACKAGE_FOLDER\src"
     $srcpathexists = Test-Path $srcpath
-    $specpath = "$PSScriptRoot\spec"
+    $specpath = "$script:PACKAGE_FOLDER\spec"
     $specpathexists = Test-Path $specpath
-    $coffeelintpath = "$PSScriptRoot\node_modules\.bin\coffeelint.cmd"
+    $coffeelintpath = "$script:PACKAGE_FOLDER\node_modules\.bin\coffeelint.cmd"
     $coffeelintpathexists = Test-Path $coffeelintpath
-    $eslintpath = "$PSScriptRoot\node_modules\.bin\eslint.cmd"
+    $eslintpath = "$script:PACKAGE_FOLDER\node_modules\.bin\eslint.cmd"
     $eslintpathexists = Test-Path $eslintpath
-    $standardpath = "$PSScriptRoot\node_modules\.bin\standard.cmd"
+    $standardpath = "$script:PACKAGE_FOLDER\node_modules\.bin\standard.cmd"
     $standardpathexists = Test-Path $standardpath
     if (($libpathexists -or $srcpathexists) -and ($coffeelintpathexists -or $eslintpathexists -or $standardpathexists)) {
         Write-Host "Linting package..."
@@ -165,7 +167,7 @@ function RunLinters() {
 }
 
 function RunSpecs() {
-    $specpath = "$PSScriptRoot\spec"
+    $specpath = "$script:PACKAGE_FOLDER\spec"
     $specpathexists = Test-Path $specpath
     if (!$specpathexists) {
         Write-Host "Missing spec folder! Please consider adding a test suite in '.\spec'"
@@ -192,7 +194,7 @@ function ExitWithCode
 
 function SetElectronEnvironmentVariables
 {
-  # TODO: Remove OS=cygwin once stable is >= Electron 0.36.7
+  # TODO: Remove OS=cygwin once master is >= Electron 0.36.7
   $env:OS = "cygwin"
   [Environment]::SetEnvironmentVariable("OS", "cygwin", "User")
   $env:ELECTRON_NO_ATTACH_CONSOLE = "true"
