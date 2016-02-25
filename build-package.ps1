@@ -40,7 +40,7 @@ function Unzip
 
 function PrintVersions() {
     Write-Host -NoNewLine "Using Atom version: "
-    & "$script:ATOM_SCRIPT_PATH" -v
+    & "$script:ATOM_EXE_PATH" --version
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
@@ -174,7 +174,7 @@ function RunSpecs() {
         ExitWithCode -exitcode 1
     }
     Write-Host "Running specs..."
-    & "$script:ATOM_SCRIPT_PATH" --test spec
+    & "$script:ATOM_EXE_PATH" --test spec 2>&1 | %{ "$_" }
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Specs Failed"
         ExitWithCode -exitcode $LASTEXITCODE
