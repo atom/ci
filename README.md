@@ -3,7 +3,7 @@
 Templates for building your Atom package and running its specs:
 
 * OS X and Ubuntu Linux: Using [Travis CI](https://travis-ci.org)
-* Windows: Using [AppVeyor](http://appveyor.com)
+* Windows: Using [Appveyor](http://appveyor.com)
 * Ubuntu Linux: Using [CircleCI](https://circleci.com)
 
 ## Setting up CI for your package
@@ -17,9 +17,9 @@ Templates for building your Atom package and running its specs:
 * :boom: Your package will now build and run its specs; you can see an example
   of a configured package [here](https://travis-ci.org/atom/wrap-guide)
 
-### AppVeyor
+### Appveyor
 
-* Sign up for an account on [AppVeyor](http://appveyor.com)
+* Sign up for an account on [Appveyor](http://appveyor.com)
 * Add a new project
 * Ensure the **Ignore appveyor.yml** setting in *Settings > General* is unchecked
 * Copy [appveyor.yml](https://raw.githubusercontent.com/atom/ci/master/appveyor.yml)
@@ -65,7 +65,7 @@ The `.travis.yml` template downloads the [build-package.sh](https://raw.githubus
 from this repository. This script then downloads node, the latest Atom release,
 and runs the `apm test` command to run your package's specs.
 
-#### AppVeyor
+#### Appveyor
 
 The `appveyor.yml` template uses [Chocolatey](https://chocolatey.org/) to
 download and install the [latest version of Atom](https://chocolatey.org/packages/Atom).
@@ -82,11 +82,11 @@ are available. Finally, the script runs the `apm test` command to run your packa
 ### What does the output look like?
 
 * [OS X @ Travis CI](https://travis-ci.org/atom/wrap-guide/builds/23774579)
-* [Windows @ AppVeyor](https://ci.appveyor.com/project/kevinsawicki/wrap-guide/build/2)
+* [Windows @ Appveyor](https://ci.appveyor.com/project/kevinsawicki/wrap-guide/build/2)
 * [Ubuntu Linux @ CircleCI](https://circleci.com/gh/levlaz/wrap-guide/1)
 
 ### What packages use this?
 
 * [OS X and Ubuntu Linux @ Travis CI](https://github.com/search?utf8=%E2%9C%93&q=%22curl+-s+https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+|+sh%22+extension%3Ayml&type=Code)
-* [Windows @ AppVeyor](https://github.com/search?q="cinst+atom"+extension%3Ayml&type=Code)
-* [Ubuntu Linux @ CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22sudo+dpkg+--install+atom-amd64.deb+||+true%22+filename%3Acircle.yml&type=Code)
+* [Windows @ Appveyor](https://github.com/search?q="cinst+atom"+extension%3Ayml&type=Code)
+* [Ubuntu Linux @ CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22https%3A%2F%2Fatom.io%2Fdownload%2Fdeb%22+filename%3Acircle.yml&type=Code)
