@@ -88,12 +88,12 @@ fi
 if [ -f ./node_modules/.bin/standard ]; then
   if [ -d ./lib ]; then
     echo "Linting package..."
-    ./node_modules/.bin/standard lib/**/*.js
+    ./node_modules/.bin/standard "lib/**/*.js"
     rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
   fi
   if [ -d ./spec ]; then
     echo "Linting package specs..."
-    ./node_modules/.bin/standard spec/**/*.js
+    ./node_modules/.bin/standard "spec/**/*.js"
     rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
   fi
 fi
