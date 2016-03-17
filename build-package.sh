@@ -2,7 +2,7 @@
 
 echo "Downloading latest Atom release..."
 ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
-ACCESS_TOKEN_CHECK="$ATOM_ACCESS_TOKEN:=unset"
+ACCESS_TOKEN_CHECK="${ATOM_ACCESS_TOKEN:=unset}"
 if [ "$ACCESS_TOKEN_CHECK" = "unset" ]; then
   export ATOM_ACCESS_TOKEN="da809a6077bb1b0aa7c5623f7b2d5f1fec2faae4"
 fi
