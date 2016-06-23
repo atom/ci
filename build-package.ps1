@@ -194,9 +194,6 @@ function ExitWithCode
 
 function SetElectronEnvironmentVariables
 {
-  # TODO: Remove OS=cygwin once master is >= Electron 0.36.7
-  $env:OS = "cygwin"
-  [Environment]::SetEnvironmentVariable("OS", "cygwin", "User")
   $env:ELECTRON_NO_ATTACH_CONSOLE = "true"
   [Environment]::SetEnvironmentVariable("ELECTRON_NO_ATTACH_CONSOLE", "true", "User")
   $env:ELECTRON_ENABLE_LOGGING = "YES"
