@@ -59,7 +59,7 @@ if [ "$TEST_PACKAGES" != "none" ]; then
 fi
 
 use_linter() {
-  \npm ls --parseable --dev --depth=0 | \grep "/${1}$" &> /dev/null
+  \npm ls --parseable --dev --depth=0 | \grep "/${1}$" > /dev/null
 }
 
 if use_linter coffeelint; then
