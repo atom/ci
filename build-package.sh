@@ -59,7 +59,8 @@ if [ "$TEST_PACKAGES" != "none" ]; then
 fi
 
 has_linter() {
-  \npm ls --parseable --dev --depth=0 | \grep "/${1}$" > /dev/null
+  local result=$( npm ls --parseable --dev --depth=0 "$1" 2> /dev/null )
+  [ -n "${result}" ]
 }
 
 if has_linter coffeelint; then
