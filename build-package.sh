@@ -58,7 +58,11 @@ if [ "$TEST_PACKAGES" != "none" ]; then
   done
 fi
 
-if [ -f ./node_modules/.bin/coffeelint ]; then
+use_linter() {
+  \npm ls --parseable --dev --depth=0 | \grep "/${1}$" &> /dev/null
+}
+
+if [ use_linter coffeelint ]; then
   if [ -d ./lib ]; then
     echo "Linting package..."
     ./node_modules/.bin/coffeelint lib
@@ -71,7 +75,7 @@ if [ -f ./node_modules/.bin/coffeelint ]; then
   fi
 fi
 
-if [ -f ./node_modules/.bin/eslint ]; then
+if [ use_linter eslint ]; then
   if [ -d ./lib ]; then
     echo "Linting package..."
     ./node_modules/.bin/eslint lib
@@ -84,7 +88,7 @@ if [ -f ./node_modules/.bin/eslint ]; then
   fi
 fi
 
-if [ -f ./node_modules/.bin/standard ]; then
+if [ use_linter standard ]; then
   if [ -d ./lib ]; then
     echo "Linting package..."
     ./node_modules/.bin/standard "lib/**/*.js"
