@@ -21,24 +21,23 @@ if [ "$TRAVIS_OS_NAME" = "osx" ]; then
     fi
     export ATOM_PATH="./atom"
     export APM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/apm"
+    export NPM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/npm"
 else
     curl -s -L "https://atom.io/download/deb?channel=$ATOM_CHANNEL" \
       -H 'Accept: application/octet-stream' \
       -o "atom.deb"
     /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
     export DISPLAY=":99"
-    dpkg-deb -x atom.deb "$HOME/atom"
-    if [ "$ATOM_CHANNEL" = "stable" ]; then
+    dpkg-deb -x atom.deb "${HOME}/atom"
+    if [ "${ATOM_CHANNEL}" = "stable" ]; then
       export ATOM_SCRIPT_NAME="atom"
-      export APM_SCRIPT_NAME="apm"
     else
-      export ATOM_SCRIPT_NAME="atom-$ATOM_CHANNEL"
-      export APM_SCRIPT_NAME="apm-$ATOM_CHANNEL"
+      export ATOM_SCRIPT_NAME="atom-${ATOM_CHANNEL}"
     fi
-    export ATOM_SCRIPT_PATH="$HOME/atom/usr/bin/$ATOM_SCRIPT_NAME"
-    export APM_SCRIPT_PATH="$HOME/atom/usr/bin/$APM_SCRIPT_NAME"
+    export ATOM_SCRIPT_PATH="${HOME}/atom/usr/bin/${ATOM_SCRIPT_NAME}"
+    export APM_SCRIPT_PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/node_modules/.bin/apm"
+    export NPM_SCRIPT_PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/node_modules/.bin/npm"
 fi
-
 
 echo "Using Atom version:"
 "$ATOM_SCRIPT_PATH" -v
@@ -59,7 +58,8 @@ if [ "$TEST_PACKAGES" != "none" ]; then
 fi
 
 has_linter() {
-  npm ls --parseable --dev --depth=0 | grep "/${1}$" > /dev/null
+  local result=$( "${NPM_SCRIPT_PATH}" ls --parseable --dev --depth=0 "${name}" 2> /dev/null )
+  [ -n "${result}" ]
 }
 
 if has_linter coffeelint; then
