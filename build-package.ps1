@@ -169,15 +169,13 @@ function RunLinters() {
 function RunSpecs() {
     $specpath = "$script:PACKAGE_FOLDER\spec"
     $specpathexists = Test-Path $specpath
-    if (!$specpathexists) {
-        Write-Host "Missing spec folder! Please consider adding a test suite in '.\spec'"
-        ExitWithCode -exitcode 1
-    }
-    Write-Host "Running specs..."
-    & "$script:ATOM_EXE_PATH" --test spec 2>&1 | %{ "$_" }
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "Specs Failed"
-        ExitWithCode -exitcode $LASTEXITCODE
+    if ($specpathexists) {
+      Write-Host "Running specs..."
+      & "$script:ATOM_EXE_PATH" --test spec 2>&1 | %{ "$_" }
+      if ($LASTEXITCODE -ne 0) {
+          Write-Host "Specs Failed"
+          ExitWithCode -exitcode $LASTEXITCODE
+      }
     }
 }
 
