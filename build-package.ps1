@@ -14,6 +14,11 @@ $script:ATOM_EXE_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\atom
 $script:ATOM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\cli\atom.cmd"
 $script:APM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin\apm.cmd"
 
+if ($env:ATOM_LINT_WITH_BUNDLED_NODE -eq "false") {
+  $script:ATOM_LINT_WITH_BUNDLED_NODE = false
+} else {
+  $script:ATOM_LINT_WITH_BUNDLED_NODE = true
+}
 
 function DownloadAtom() {
     Write-Host "Downloading latest Atom release..."
@@ -57,7 +62,31 @@ function InstallPackage() {
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
-    & "$script:APM_SCRIPT_PATH" install
+    if ($script:ATOM_LINT_WITH_BUNDLED_NODE) {
+      & "$script:APM_SCRIPT_PATH" install
+      # Set the PATH to include the node.exe bundled with APM
+      $newPath = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin;$env:PATH"
+      $env:PATH = $newPath
+      [Environment]::SetEnvironmentVariable("PATH", "$newPath", "User")
+    } else {
+      & "$script:APM_SCRIPT_PATH" install --production
+      if ($LASTEXITCODE -ne 0) {
+          ExitWithCode -exitcode $LASTEXITCODE
+      }
+      # Use the system NPM to install the devDependencies
+      Write-Host "Using Node.js version:"
+      & node --version
+      if ($LASTEXITCODE -ne 0) {
+          ExitWithCode -exitcode $LASTEXITCODE
+      }
+      Write-Host "Using NPM version:"
+      & npm --version
+      if ($LASTEXITCODE -ne 0) {
+          ExitWithCode -exitcode $LASTEXITCODE
+      }
+      Write-Host "Installing remaining dependencies..."
+      & npm install
+    }
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }

@@ -21,6 +21,7 @@ os:
 env:
   global:
     - APM_TEST_PACKAGES=""
+    - ATOM_LINT_WITH_BUNDLED_NODE="false"
 
   matrix:
     - ATOM_CHANNEL=stable
