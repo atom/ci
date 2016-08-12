@@ -22,13 +22,13 @@ if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
     export ATOM_PATH="./atom"
     export APM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/apm"
     export NPM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/npm"
-else
+elif [ "$TRAVIS_OS_NAME" = "linux" ]; then
     curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
       -H 'Accept: application/octet-stream' \
-      -o "atom.deb"
+      -o "atom-amd64.deb"
     /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
     export DISPLAY=":99"
-    dpkg-deb -x atom.deb "${HOME}/atom"
+    dpkg-deb -x atom-amd64.deb "${HOME}/atom"
     if [ "${ATOM_CHANNEL}" = "stable" ]; then
       export ATOM_SCRIPT_NAME="atom"
       export APM_SCRIPT_NAME="apm"
@@ -39,8 +39,19 @@ else
     export ATOM_SCRIPT_PATH="${HOME}/atom/usr/bin/${ATOM_SCRIPT_NAME}"
     export APM_SCRIPT_PATH="${HOME}/atom/usr/bin/${APM_SCRIPT_NAME}"
     export NPM_SCRIPT_PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/node_modules/.bin/npm"
+elif [ "$CIRCLECI" = "true" ]; then
+  curl -s -L "https://atom.io/download/deb?channel=$ATOM_CHANNEL" \
+    -H 'Accept: application/octet-stream' \
+    -o "atom-amd64.deb"
+  sudo dpkg --install atom-amd64.deb || true
+  sudo apt-get update
+  sudo apt-get -f install
+  export ATOM_SCRIPT_PATH="atom"
+  export APM_SCRIPT_PATH="apm"
+else
+  echo "Unknown CI environment, exiting!"
+  exit 1
 fi
-
 
 echo "Using Atom version:"
 "${ATOM_SCRIPT_PATH}" -v
@@ -56,6 +67,9 @@ if [ "${ATOM_LINT_WITH_BUNDLED_NODE:=true}" = "true" ]; then
   # Override the PATH to put the Node bundled with APM first
   if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
     export PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/bin:${PATH}"
+  elif [ "$CIRCLECI" = "true" ]; then
+    # Since CircleCI is a fully installed environment, we use the system path to apm
+    export PATH="/usr/share/atom/resources/app/apm/bin:$PATH"
   else
     export PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/bin:${PATH}"
   fi
