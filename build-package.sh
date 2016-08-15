@@ -75,7 +75,7 @@ if [ "${TEST_PACKAGES}" != "none" ]; then
   done
 fi
 
-function has_linter() {
+has_linter() {
   local result=$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )
   [ -n "${result}" ]
 }
