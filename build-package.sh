@@ -81,15 +81,6 @@ has_linter() {
   [ -n "${result}" ]
 }
 
-echo "Testing for linters..."
-if has_linter standard; then
-  echo "Linting package with standard..."
-fi
-
-if has_linter eslint; then
-  echo "Linting package with eslint..."
-fi
-
 if has_linter coffeelint; then
   if [ -d ./lib ]; then
     echo "Linting package using coffeelint..."
