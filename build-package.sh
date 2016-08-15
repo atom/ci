@@ -56,6 +56,7 @@ if [ "${ATOM_LINT_WITH_BUNDLED_NODE}" = "true" ]; then
   # Override the PATH to put the Node.js bundled with APM first
   export PATH="${PWD}/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/bin:${PATH}"
 else
+  export NPM_SCRIPT_PATH="npm"
   "${APM_SCRIPT_PATH}" install --production
   # Use the system NPM to install the devDependencies
   echo "Using Node.js version:"
