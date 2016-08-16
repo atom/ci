@@ -163,21 +163,21 @@ function RunLinters() {
     }
 
     if ($srcpathexists) {
-        if ($coffeelintpathexists) {
+        if ($lintwithcoffeelint) {
             & "$coffeelintpath" src
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
             }
         }
 
-        if ($eslintpathexists) {
+        if ($lintwitheslint) {
             & "$eslintpath" src
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
             }
         }
 
-        if ($standardpathexists) {
+        if ($lintwithstandard) {
             & "$standardpath" src/**/*.js
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
@@ -185,23 +185,23 @@ function RunLinters() {
         }
     }
 
-    if ($specpathexists -and ($coffeelintpathexists -or $eslintpathexists -or $standardpathexists)) {
+    if ($specpathexists -and ($lintwithcoffeelint -or $lintwitheslint -or $lintwithstandard)) {
         Write-Host "Linting package specs..."
-        if ($coffeelintpathexists) {
+        if ($lintwithcoffeelint) {
             & "$coffeelintpath" spec
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
             }
         }
 
-        if ($eslintpathexists) {
+        if ($lintwitheslint) {
             & "$eslintpath" spec
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
             }
         }
 
-        if ($standardpathexists) {
+        if ($lintwithstandard) {
             & "$standardpath" spec/**/*.js
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
