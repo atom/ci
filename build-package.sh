@@ -72,7 +72,7 @@ TEST_PACKAGES="${APM_TEST_PACKAGES:=none}"
 if [ "${TEST_PACKAGES}" != "none" ]; then
   echo "Installing atom package dependencies..."
   for pack in ${TEST_PACKAGES} ; do
-    "${APM_SCRIPT_PATH}" install "$pack"
+    "${APM_SCRIPT_PATH}" install "${pack}"
   done
 fi
 
