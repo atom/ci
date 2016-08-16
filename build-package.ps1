@@ -15,11 +15,11 @@ $script:ATOM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\r
 $script:APM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin\apm.cmd"
 $script:NPM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\node_modules\.bin\npm.cmd"
 
-if ($env:ATOM_LINT_WITH_BUNDLED_NODE -eq "false") {
+if ($env:ATOM_LINT_WITH_BUNDLED_NODE -eq "true") {
+  $script:ATOM_LINT_WITH_BUNDLED_NODE = true
+} else {
   $script:ATOM_LINT_WITH_BUNDLED_NODE = false
   $script:NPM_SCRIPT_PATH = "npm"
-} else {
-  $script:ATOM_LINT_WITH_BUNDLED_NODE = true
 }
 
 function DownloadAtom() {
