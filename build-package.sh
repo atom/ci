@@ -50,7 +50,7 @@ echo "Using APM version:"
 echo "Downloading package dependencies..."
 "${APM_SCRIPT_PATH}" clean
 
-ATOM_LINT_WITH_BUNDLED_NODE="${ATOM_LINT_WITH_BUNDLED_NODE:=false}"
+ATOM_LINT_WITH_BUNDLED_NODE="${ATOM_LINT_WITH_BUNDLED_NODE:=true}"
 if [ "${ATOM_LINT_WITH_BUNDLED_NODE}" = "true" ]; then
   "${APM_SCRIPT_PATH}" install
   # Override the PATH to put the Node.js bundled with APM first
