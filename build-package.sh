@@ -53,8 +53,13 @@ echo "Downloading package dependencies..."
 ATOM_LINT_WITH_BUNDLED_NODE="${ATOM_LINT_WITH_BUNDLED_NODE:=true}"
 if [ "${ATOM_LINT_WITH_BUNDLED_NODE}" = "true" ]; then
   "${APM_SCRIPT_PATH}" install
-  # Override the PATH to put the Node.js bundled with APM first
-  export PATH="${PWD}/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/bin:${PATH}"
+
+  # Override the PATH to put the Node bundled with APM first
+  if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
+    export PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/bin:${PATH}"
+  else
+    export PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/bin:${PATH}"
+  fi
 else
   export NPM_SCRIPT_PATH="npm"
   "${APM_SCRIPT_PATH}" install --production
