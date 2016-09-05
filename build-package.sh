@@ -77,11 +77,11 @@ if [ "${TEST_PACKAGES}" != "none" ]; then
 fi
 
 has_linter() {
-  local result=$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )
+  local result="$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )"
   [ -n "${result}" ]
 }
 
-if has_linter coffeelint; then
+if has_linter "coffeelint"; then
   if [ -d ./lib ]; then
     echo "Linting package using coffeelint..."
     ./node_modules/.bin/coffeelint lib
@@ -94,7 +94,7 @@ if has_linter coffeelint; then
   fi
 fi
 
-if has_linter eslint; then
+if has_linter "eslint"; then
   if [ -d ./lib ]; then
     echo "Linting package using eslint..."
     ./node_modules/.bin/eslint lib
@@ -107,7 +107,7 @@ if has_linter eslint; then
   fi
 fi
 
-if has_linter standard; then
+if has_linter "standard"; then
   if [ -d ./lib ]; then
     echo "Linting package using standard..."
     ./node_modules/.bin/standard "lib/**/*.js"
