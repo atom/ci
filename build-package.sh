@@ -50,8 +50,7 @@ echo "Using APM version:"
 echo "Downloading package dependencies..."
 "${APM_SCRIPT_PATH}" clean
 
-ATOM_LINT_WITH_BUNDLED_NODE="${ATOM_LINT_WITH_BUNDLED_NODE:=true}"
-if [ "${ATOM_LINT_WITH_BUNDLED_NODE}" = "true" ]; then
+if [ "${ATOM_LINT_WITH_BUNDLED_NODE:=true}" = "true" ]; then
   "${APM_SCRIPT_PATH}" install
 
   # Override the PATH to put the Node bundled with APM first
@@ -63,8 +62,9 @@ if [ "${ATOM_LINT_WITH_BUNDLED_NODE}" = "true" ]; then
 else
   export NPM_SCRIPT_PATH="npm"
   "${APM_SCRIPT_PATH}" install --production
+
   # Use the system NPM to install the devDependencies
-  echo "Using Node.js version:"
+  echo "Using Node version:"
   node --version
   echo "Using NPM version:"
   npm --version
@@ -72,11 +72,9 @@ else
   npm install
 fi
 
-TEST_PACKAGES="${APM_TEST_PACKAGES:=none}"
-
-if [ "${TEST_PACKAGES}" != "none" ]; then
+if [ -n "${APM_TEST_PACKAGES}" ]; then
   echo "Installing atom package dependencies..."
-  for pack in ${TEST_PACKAGES} ; do
+  for pack in ${APM_TEST_PACKAGES}; do
     "${APM_SCRIPT_PATH}" install "${pack}"
   done
 fi
