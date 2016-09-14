@@ -22,7 +22,7 @@ if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
   export ATOM_PATH="./atom"
   export APM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/apm"
   export NPM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/npm"
-elif [ "$TRAVIS_OS_NAME" = "linux" ]; then
+elif [ "${TRAVIS_OS_NAME}" = "linux" ]; then
   curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
     -H 'Accept: application/octet-stream' \
     -o "atom-amd64.deb"
@@ -39,8 +39,8 @@ elif [ "$TRAVIS_OS_NAME" = "linux" ]; then
   export ATOM_SCRIPT_PATH="${HOME}/atom/usr/bin/${ATOM_SCRIPT_NAME}"
   export APM_SCRIPT_PATH="${HOME}/atom/usr/bin/${APM_SCRIPT_NAME}"
   export NPM_SCRIPT_PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/node_modules/.bin/npm"
-elif [ "$CIRCLECI" = "true" ]; then
-  curl -s -L "https://atom.io/download/deb?channel=$ATOM_CHANNEL" \
+elif [ "${CIRCLECI}" = "true" ]; then
+  curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
     -H 'Accept: application/octet-stream' \
     -o "atom-amd64.deb"
   sudo dpkg --install atom-amd64.deb || true
@@ -67,9 +67,9 @@ if [ "${ATOM_LINT_WITH_BUNDLED_NODE:=true}" = "true" ]; then
   # Override the PATH to put the Node bundled with APM first
   if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
     export PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/bin:${PATH}"
-  elif [ "$CIRCLECI" = "true" ]; then
+  elif [ "${CIRCLECI}" = "true" ]; then
     # Since CircleCI is a fully installed environment, we use the system path to apm
-    export PATH="/usr/share/atom/resources/app/apm/bin:$PATH"
+    export PATH="/usr/share/atom/resources/app/apm/bin:${PATH}"
   else
     export PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/bin:${PATH}"
   fi
