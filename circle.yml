@@ -8,8 +8,6 @@ dependencies:
     - echo "Managed in the script"
 
 machine:
-  node:
-    version: 6
   environment:
     ATOM_LINT_WITH_BUNDLED_NODE: "true"
     APM_TEST_PACKAGES: ""
