@@ -4,11 +4,12 @@ test:
 
 dependencies:
   override:
+    # If nothing is put here, CircleCI will run `npm install` using the system Node.js
     - echo "Managed in the script"
 
 machine:
   node:
     version: 6
   environment:
-    ATOM_LINT_WITH_BUNDLED_NODE: "false"
+    ATOM_LINT_WITH_BUNDLED_NODE: "true"
     APM_TEST_PACKAGES: ""
