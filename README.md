@@ -62,8 +62,9 @@ can run `apm help test` to learn more about that command.
 #### Travis CI
 
 The `.travis.yml` template downloads the [build-package.sh](https://raw.githubusercontent.com/atom/ci/master/build-package.sh)
-from this repository. This script then downloads node, the latest Atom release,
-and runs the `apm test` command to run your package's specs.
+from this repository. This script then downloads the latest Atom release,
+installs your package's dependencies, and runs the `apm test` command to run
+your package's specs.
 
 #### Appveyor
 
@@ -75,8 +76,7 @@ package's specs.
 
 #### CircleCI
 
-The `circle.yml` template downloads the [latest version of Atom](https://atom.io/download/deb) for Ubuntu and installs it using apt. `apm install` is run in your package directory to ensure any node dependencies
-are available. Finally, the script runs the `apm test` command to run your package's specs.
+The `circle.yml` template runs the same script that is used in the Travis-CI builds.
 
 
 ### What does the output look like?
@@ -87,6 +87,5 @@ are available. Finally, the script runs the `apm test` command to run your packa
 
 ### What packages use this?
 
-* [OS X and Ubuntu Linux @ Travis CI](https://github.com/search?utf8=%E2%9C%93&q=%22curl+-s+https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+|+sh%22+extension%3Ayml&type=Code)
+* [OS X and Ubuntu Linux @ Travis CI and CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22curl+-s+https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+|+sh%22+extension%3Ayml&type=Code)
 * [Windows @ Appveyor](https://github.com/search?q="cinst+atom"+extension%3Ayml&type=Code)
-* [Ubuntu Linux @ CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22https%3A%2F%2Fatom.io%2Fdownload%2Fdeb%22+filename%3Acircle.yml&type=Code)
