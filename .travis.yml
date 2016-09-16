@@ -17,9 +17,6 @@ os:
 ### Generic setup follows ###
 script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh'
 
-# Needed to disable the auto-install step running `npm install`
-install: true
-
 notifications:
   email:
     on_success: never
