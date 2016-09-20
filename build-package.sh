@@ -95,8 +95,8 @@ if [ -n "${APM_TEST_PACKAGES}" ]; then
 fi
 
 has_linter() {
-  result="$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )"
-  [ -n "${result}" ]
+  linter_module_path="$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )"
+  [ -n "${linter_module_path}" ]
 }
 
 if has_linter "coffeelint"; then
