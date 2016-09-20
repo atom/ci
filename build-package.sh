@@ -48,6 +48,7 @@ elif [ "${CIRCLECI}" = "true" ]; then
   sudo apt-get -f install
   export ATOM_SCRIPT_PATH="atom"
   export APM_SCRIPT_PATH="apm"
+  export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
 else
   echo "Unknown CI environment, exiting!"
   exit 1
@@ -94,8 +95,8 @@ if [ -n "${APM_TEST_PACKAGES}" ]; then
 fi
 
 has_linter() {
-  local result="$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )"
-  [ -n "${result}" ]
+  linter_module_path="$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )"
+  [ -n "${linter_module_path}" ]
 }
 
 if has_linter "coffeelint"; then
