@@ -48,6 +48,7 @@ elif [ "${CIRCLECI}" = "true" ]; then
   sudo apt-get -f install
   export ATOM_SCRIPT_PATH="atom"
   export APM_SCRIPT_PATH="apm"
+  export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
 else
   echo "Unknown CI environment, exiting!"
   exit 1
