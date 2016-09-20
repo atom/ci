@@ -94,7 +94,7 @@ if [ -n "${APM_TEST_PACKAGES}" ]; then
 fi
 
 has_linter() {
-  local result="$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )"
+  result="$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )"
   [ -n "${result}" ]
 }
 
