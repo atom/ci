@@ -2,8 +2,8 @@
 
 Templates for building your Atom package and running its specs:
 
-* OS X and Ubuntu Linux: Using [Travis CI](https://travis-ci.org)
-* Windows: Using [Appveyor](http://appveyor.com)
+* macOS and Ubuntu Linux: Using [Travis CI](https://travis-ci.org)
+* Windows: Using [Appveyor](https://appveyor.com)
 * Ubuntu Linux: Using [CircleCI](https://circleci.com)
 
 ## Setting up CI for your package
@@ -13,19 +13,19 @@ Templates for building your Atom package and running its specs:
 * Sign up for an account on [Travis CI](https://travis-ci.org)
 * Copy [.travis.yml](https://raw.githubusercontent.com/atom/ci/master/.travis.yml)
   to the root of your package's repository
-* Setup the [Travis CI hook](http://docs.travis-ci.com/user/getting-started/#Step-two%3A-Activate-GitHub-Webhook) on your package's repository
+* Setup the [Travis CI hook](https://docs.travis-ci.com/user/getting-started/#To-get-started-with-Travis-CI%3A) on your package's repository
 * :boom: Your package will now build and run its specs; you can see an example
   of a configured package [here](https://travis-ci.org/atom/wrap-guide)
 
 ### Appveyor
 
-* Sign up for an account on [Appveyor](http://appveyor.com)
+* Sign up for an account on [Appveyor](https://appveyor.com)
 * Add a new project
 * Ensure the **Ignore appveyor.yml** setting in *Settings > General* is unchecked
 * Copy [appveyor.yml](https://raw.githubusercontent.com/atom/ci/master/appveyor.yml)
   to the root of your package's repository
 * :boom: Your package will now build and run its specs; you can see an example
-  of a configured package [here](https://ci.appveyor.com/project/kevinsawicki/wrap-guide)
+  of a configured package [here](https://ci.appveyor.com/project/Atom/wrap-guide)
 
 ### CircleCI
 
@@ -81,11 +81,11 @@ The `circle.yml` template runs the same script that is used in the Travis-CI bui
 
 ### What does the output look like?
 
-* [OS X @ Travis CI](https://travis-ci.org/atom/wrap-guide/builds/23774579)
-* [Windows @ Appveyor](https://ci.appveyor.com/project/kevinsawicki/wrap-guide/build/2)
+* [macOS @ Travis CI](https://travis-ci.org/atom/wrap-guide/builds/23774579)
+* [Windows @ Appveyor](https://ci.appveyor.com/project/Atom/wrap-guide/build/12)
 * [Ubuntu Linux @ CircleCI](https://circleci.com/gh/levlaz/wrap-guide/1)
 
 ### What packages use this?
 
-* [OS X and Ubuntu Linux @ Travis CI and CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22curl+-s+https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+|+sh%22+extension%3Ayml&type=Code)
+* [macOS and Ubuntu Linux @ Travis CI and CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22curl+-s+https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+|+sh%22+extension%3Ayml&type=Code)
 * [Windows @ Appveyor](https://github.com/search?q="cinst+atom"+extension%3Ayml&type=Code)
