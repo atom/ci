@@ -95,7 +95,7 @@ if [ -n "${APM_TEST_PACKAGES}" ]; then
 fi
 
 has_linter() {
-  linter_module_path="$( ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null )"
+  linter_module_path="$( ${NPM_SCRIPT_PATH} ls --parseable --depth=0 "$1" 2> /dev/null )"
   [ -n "${linter_module_path}" ]
 }
 
