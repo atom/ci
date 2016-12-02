@@ -214,7 +214,7 @@ function RunSpecs() {
     $testpath = "$script:PACKAGE_FOLDER\test"
     $specpathexists = Test-Path $specpath
     $testpathexists = Test-Path $testpath
-    if (!$specpathexists -and !testpathexists) {
+    if (!$specpathexists -and !$testpathexists) {
         Write-Host "Missing spec folder! Please consider adding a test suite in '.\spec' or in '\.test'"
         ExitWithCode -exitcode 1
     }
