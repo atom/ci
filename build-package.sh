@@ -46,8 +46,15 @@ elif [ "${CIRCLECI}" = "true" ]; then
   sudo dpkg --install atom-amd64.deb || true
   sudo apt-get update
   sudo apt-get -f install
-  export ATOM_SCRIPT_PATH="atom"
-  export APM_SCRIPT_PATH="apm"
+  if [ "${ATOM_CHANNEL}" = "stable" ]; then
+    export ATOM_SCRIPT_NAME="atom"
+    export APM_SCRIPT_NAME="apm"
+  else
+    export ATOM_SCRIPT_NAME="atom-${ATOM_CHANNEL}"
+    export APM_SCRIPT_NAME="apm-${ATOM_CHANNEL}"
+  fi
+  export ATOM_SCRIPT_PATH="${ATOM_SCRIPT_NAME}"
+  export APM_SCRIPT_PATH="${APM_SCRIPT_NAME}"
   export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
 else
   echo "Unknown CI environment, exiting!"
