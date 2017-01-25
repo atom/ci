@@ -32,13 +32,13 @@ Templates for building your Atom package and running its specs:
 * Sign up for an account on [CircleCI](https://circleci.com)
 * [Add a new project](https://circleci.com/docs/getting-started)
 * Copy [circle.yml](https://raw.githubusercontent.com/atom/ci/master/circle.yml) to the root of your package's repository
-* :boom: Your package will now build and run its specs; you can see an example of a configured package [here](https://circleci.com/gh/levlaz/wrap-guide)
+* :boom: Your package will now build and run its specs; you can see an example of a configured package [here](https://circleci.com/gh/AtomLinter/linter-stylelint)
 
 ## FAQ
 
 ### How do I install other Atom packages that my package build depends on?
 
-Set the `APM_TEST_PACKAGES` environment variable in your `.travis.yml` file
+Set the `APM_TEST_PACKAGES` environment variable in your `.travis.yml` or `circle.yml` file
 to a space-separated list of packages to install before your package's tests
 run.
 
@@ -83,7 +83,7 @@ The `circle.yml` template runs the same script that is used in the Travis-CI bui
 
 * [macOS @ Travis CI](https://travis-ci.org/atom/wrap-guide/builds/23774579)
 * [Windows @ Appveyor](https://ci.appveyor.com/project/Atom/wrap-guide/build/12)
-* [Ubuntu Linux @ CircleCI](https://circleci.com/gh/levlaz/wrap-guide/1)
+* [Ubuntu Linux @ CircleCI](https://circleci.com/gh/AtomLinter/linter-stylelint/623)
 
 ### What packages use this?
 
