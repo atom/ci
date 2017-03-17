@@ -45,7 +45,7 @@ elif [ "${CIRCLECI}" = "true" ]; then
     -o "atom-amd64.deb"
   sudo dpkg --install atom-amd64.deb || true
   sudo apt-get update
-  sudo apt-get -f install
+  sudo apt-get -f --assume-yes --quiet install
   export ATOM_SCRIPT_PATH="atom"
   export APM_SCRIPT_PATH="apm"
   export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
