@@ -47,10 +47,11 @@ function Unzip
 
 function PrintVersions() {
     Write-Host -NoNewLine "Using Atom version: "
-    & "$script:ATOM_EXE_PATH" --version
+    $atomVer = & "$script:ATOM_EXE_PATH" --version | Out-String
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
+    Write-Host $atomVer
     Write-Host "Using APM version: "
     & "$script:APM_SCRIPT_PATH" -v
     if ($LASTEXITCODE -ne 0) {
