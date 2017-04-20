@@ -13,6 +13,7 @@ env:
 os:
   - linux
   - osx
+dist: trusty
 
 ### Generic setup follows ###
 script:
@@ -40,4 +41,5 @@ addons:
     - build-essential
     - git
     - libgnome-keyring-dev
+    - libsecret-1-dev
     - fakeroot
