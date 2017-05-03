@@ -112,7 +112,7 @@ function InstallDependencies() {
 
 
 function HasLinter([String] $LinterName) {
-    $output = &"$script:NPM_SCRIPT_PATH" ls --parseable --dev --depth=0 $LinterName 2>$null
+    $output = &"$script:NPM_SCRIPT_PATH" ls --parseable --depth=0 $LinterName 2>$null
     if ($LastExitCode -eq 0) {
         if ($output.Trim() -ne "") {
             return $true
