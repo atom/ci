@@ -16,10 +16,10 @@ $script:APM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\re
 $script:NPM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\node_modules\.bin\npm.cmd"
 
 if ($env:ATOM_LINT_WITH_BUNDLED_NODE -eq "false") {
-  $script:ATOM_LINT_WITH_BUNDLED_NODE = false
+  $script:ATOM_LINT_WITH_BUNDLED_NODE = $FALSE
   $script:NPM_SCRIPT_PATH = "npm"
 } else {
-  $script:ATOM_LINT_WITH_BUNDLED_NODE = true
+  $script:ATOM_LINT_WITH_BUNDLED_NODE = $TRUE
 }
 
 function DownloadAtom() {
@@ -65,7 +65,7 @@ function InstallPackage() {
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
-    if ($script:ATOM_LINT_WITH_BUNDLED_NODE) {
+    if ($script:ATOM_LINT_WITH_BUNDLED_NODE -eq $TRUE) {
       & "$script:APM_SCRIPT_PATH" install
       # Set the PATH to include the node.exe bundled with APM
       $newPath = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin;$env:PATH"
