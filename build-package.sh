@@ -22,6 +22,7 @@ if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
   export ATOM_PATH="./atom"
   export APM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/apm"
   export NPM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/npm"
+  export PATH="${PATH}:${TRAVIS_BUILD_DIR}/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin"
 elif [ "${TRAVIS_OS_NAME}" = "linux" ]; then
   curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
     -H 'Accept: application/octet-stream' \
