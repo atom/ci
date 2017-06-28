@@ -14,8 +14,6 @@ os:
   - linux
   - osx
 
-dist: trusty
-
 ### Generic setup follows ###
 script:
   - curl -s -O https://raw.githubusercontent.com/atom/ci/master/build-package.sh
@@ -35,6 +33,8 @@ git:
   depth: 10
 
 sudo: false
+
+dist: trusty
 
 addons:
   apt:
