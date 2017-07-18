@@ -147,6 +147,6 @@ elif [ -d ./test ]; then
   "${ATOM_SCRIPT_PATH}" --test test
 else
   echo "Missing spec folder! Please consider adding a test suite in './spec' or in './test'"
-  exit 1
+  exit 0
 fi
 exit
