@@ -41,15 +41,44 @@ elif [ "${TRAVIS_OS_NAME}" = "linux" ]; then
   export APM_SCRIPT_PATH="${HOME}/atom/usr/bin/${APM_SCRIPT_NAME}"
   export NPM_SCRIPT_PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/node_modules/.bin/npm"
 elif [ "${CIRCLECI}" = "true" ]; then
-  curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
-    -H 'Accept: application/octet-stream' \
-    -o "atom-amd64.deb"
-  sudo dpkg --install atom-amd64.deb || true
-  sudo apt-get update
-  sudo apt-get --fix-broken --assume-yes --quiet install
-  export ATOM_SCRIPT_PATH="atom"
-  export APM_SCRIPT_PATH="apm"
-  export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
+  case "${OSTYPE}" in
+    linux*)
+      curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
+        -H 'Accept: application/octet-stream' \
+        -o "atom-amd64.deb"
+      sudo dpkg --install atom-amd64.deb || true
+      sudo apt-get update
+      sudo apt-get --fix-broken --assume-yes --quiet install
+      export ATOM_SCRIPT_PATH="atom"
+      export APM_SCRIPT_PATH="apm"
+      export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
+      ;;
+    darwin*)
+      curl -s -L "https://atom.io/download/mac?channel=${ATOM_CHANNEL}" \
+        -H 'Accept: application/octet-stream' \
+        -o "atom.zip"
+      mkdir atom
+      unzip -q atom.zip -d atom
+      if [ "${ATOM_CHANNEL}" = "stable" ]; then
+        export ATOM_APP_NAME="Atom.app"
+        export ATOM_SCRIPT_NAME="atom.sh"
+        export ATOM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh"
+      else
+        export ATOM_APP_NAME="Atom ${ATOM_CHANNEL}.app"
+        export ATOM_SCRIPT_NAME="atom-${ATOM_CHANNEL}"
+        export ATOM_SCRIPT_PATH="./atom-${ATOM_CHANNEL}"
+        ln -s "./atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh" "${ATOM_SCRIPT_PATH}"
+      fi
+      export ATOM_PATH="./atom"
+      export APM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/apm"
+      export NPM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/npm"
+      export PATH="${PATH}:${TRAVIS_BUILD_DIR}/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin"
+      ;;
+    *)
+      echo "Unsupported CircleCI OS" >&2
+      exit 1
+      ;;
+    esac
 else
   echo "Unknown CI environment, exiting!"
   exit 1
