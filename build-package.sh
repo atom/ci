@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 echo "Downloading latest Atom release..."
 ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
 
