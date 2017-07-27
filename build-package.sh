@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Downloading latest Atom release..."
 ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
@@ -75,7 +75,7 @@ elif [ "${CIRCLECI}" = "true" ]; then
       export PATH="${PATH}:${TRAVIS_BUILD_DIR}/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin"
       ;;
     *)
-      echo "Unsupported CircleCI OS" >&2
+      echo "Unsupported CircleCI OS: ${OSTYPE}" >&2
       exit 1
       ;;
     esac
