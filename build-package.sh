@@ -96,7 +96,7 @@ if [ "${ATOM_LINT_WITH_BUNDLED_NODE:=true}" = "true" ]; then
   "${APM_SCRIPT_PATH}" install
 
   # Override the PATH to put the Node bundled with APM first
-  if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
+  if [ "${TRAVIS_OS_NAME}" = "osx" ] || [ "${CIRCLE_BUILD_IMAGE}" = "osx" ]; then
     export PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/bin:${PATH}"
   elif [ "${CIRCLECI}" = "true" ]; then
     # Since CircleCI is a fully installed environment, we use the system path to apm
