@@ -11,3 +11,5 @@ dependencies:
 test:
   override:
     - ./build-package.sh
+    # On MacOS:
+    # - caffeinate -s build-package.sh
