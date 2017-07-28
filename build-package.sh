@@ -101,9 +101,9 @@ if [ "${ATOM_LINT_WITH_BUNDLED_NODE:=true}" = "true" ]; then
   if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
     export PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/bin:${PATH}"
   elif [ "${CIRCLECI}" = "true" ] && [ "${CIRCLE_BUILD_IMAGE}" = "osx" ]; then
-    # Since CircleCI is a fully installed environment, we use the system path to apm
     export PATH="/tmp/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/bin:${PATH}"
   elif [ "${CIRCLECI}" = "true" ]; then
+    # Since CircleCI/Linux is a fully installed environment, we use the system path to apm
     export PATH="/usr/share/atom/resources/app/apm/bin:${PATH}"
   else
     export PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/bin:${PATH}"
@@ -174,11 +174,9 @@ fi
 
 if [ -d ./spec ]; then
   echo "Running specs..."
-
   "${ATOM_SCRIPT_PATH}" --test spec
 elif [ -d ./test ]; then
   echo "Running specs..."
-
   "${ATOM_SCRIPT_PATH}" --test test
 else
   echo "Missing spec folder! Please consider adding a test suite in './spec' or in './test'"
