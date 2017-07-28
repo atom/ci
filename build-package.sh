@@ -1,9 +1,5 @@
 #!/bin/bash
 
-set -x
-
-echo "*tap tap tap* is this thing on"
-echo "Downloading latest Atom release..."
 ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
 
 if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
