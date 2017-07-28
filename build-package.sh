@@ -60,21 +60,21 @@ elif [ "${CIRCLECI}" = "true" ]; then
       curl -s -L "https://atom.io/download/mac?channel=${ATOM_CHANNEL}" \
         -H 'Accept: application/octet-stream' \
         -o "atom.zip"
-      mkdir atom
-      unzip -q atom.zip -d atom
+      mkdir -p /tmp/atom
+      unzip -q atom.zip -d /tmp/atom
       if [ "${ATOM_CHANNEL}" = "stable" ]; then
         export ATOM_APP_NAME="Atom.app"
         export ATOM_SCRIPT_NAME="atom.sh"
-        export ATOM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh"
+        export ATOM_SCRIPT_PATH="/tmp/atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh"
       else
         export ATOM_APP_NAME="Atom ${ATOM_CHANNEL}.app"
         export ATOM_SCRIPT_NAME="atom-${ATOM_CHANNEL}"
-        export ATOM_SCRIPT_PATH="./atom-${ATOM_CHANNEL}"
-        ln -s "./atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh" "${ATOM_SCRIPT_PATH}"
+        export ATOM_SCRIPT_PATH="/tmp/atom-${ATOM_CHANNEL}"
+        ln -s "/tmp/atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh" "${ATOM_SCRIPT_PATH}"
       fi
-      export ATOM_PATH="./atom"
-      export APM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/apm"
-      export NPM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/npm"
+      export ATOM_PATH="/tmp/atom"
+      export APM_SCRIPT_PATH="/tmp/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/apm"
+      export NPM_SCRIPT_PATH="/tmp/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/npm"
       export PATH="${PATH}:${TRAVIS_BUILD_DIR}/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin"
       ;;
     *)
