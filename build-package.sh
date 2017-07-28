@@ -72,6 +72,9 @@ elif [ "${CIRCLECI}" = "true" ]; then
       export APM_SCRIPT_PATH="/tmp/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/apm"
       export NPM_SCRIPT_PATH="/tmp/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin/npm"
       export PATH="${PATH}:${TRAVIS_BUILD_DIR}/atom/${ATOM_APP_NAME}/Contents/Resources/app/apm/node_modules/.bin"
+
+      # Clear screen saver
+      osascript -e 'tell application "System Events" to keystroke "x"'
       ;;
     *)
       echo "Unsupported CircleCI OS: ${OSTYPE}" >&2
