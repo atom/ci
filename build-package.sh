@@ -179,8 +179,6 @@ if [ -d ./spec ]; then
 elif [ -d ./test ]; then
   echo "Running specs..."
 
-  echo "ATOM_SCRIPT_PATH = ${ATOM_SCRIPT_PATH}"
-  echo "PATH = ${PATH}"
   "${ATOM_SCRIPT_PATH}" --test test
 else
   echo "Missing spec folder! Please consider adding a test suite in './spec' or in './test'"
