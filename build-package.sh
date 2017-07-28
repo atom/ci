@@ -2,6 +2,7 @@
 
 ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
 
+echo "Downloading latest Atom release on the ${ATOM_CHANNEL} channel..."
 if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
   curl -s -L "https://atom.io/download/mac?channel=${ATOM_CHANNEL}" \
     -H 'Accept: application/octet-stream' \
