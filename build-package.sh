@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
 
@@ -41,8 +41,8 @@ elif [ "${TRAVIS_OS_NAME}" = "linux" ]; then
   export APM_SCRIPT_PATH="${HOME}/atom/usr/bin/${APM_SCRIPT_NAME}"
   export NPM_SCRIPT_PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/node_modules/.bin/npm"
 elif [ "${CIRCLECI}" = "true" ]; then
-  case "${OSTYPE}" in
-    linux*)
+  case "${CIRCLE_BUILD_IMAGE}" in
+    ubuntu*)
       curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
         -H 'Accept: application/octet-stream' \
         -o "atom-amd64.deb"
@@ -53,7 +53,7 @@ elif [ "${CIRCLECI}" = "true" ]; then
       export APM_SCRIPT_PATH="apm"
       export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
       ;;
-    darwin*)
+    osx)
       curl -s -L "https://atom.io/download/mac?channel=${ATOM_CHANNEL}" \
         -H 'Accept: application/octet-stream' \
         -o "atom.zip"
@@ -78,7 +78,7 @@ elif [ "${CIRCLECI}" = "true" ]; then
       osascript -e 'tell application "System Events" to keystroke "x"'
       ;;
     *)
-      echo "Unsupported CircleCI OS: ${OSTYPE}" >&2
+      echo "Unsupported CircleCI OS: ${CIRCLE_BUILD_IMAGE}" >&2
       exit 1
       ;;
     esac
