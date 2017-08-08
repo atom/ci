@@ -16,10 +16,10 @@ $script:APM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\re
 $script:NPM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\node_modules\.bin\npm.cmd"
 
 if ($env:ATOM_LINT_WITH_BUNDLED_NODE -eq "false") {
-  $script:ATOM_LINT_WITH_BUNDLED_NODE = false
+  $script:ATOM_LINT_WITH_BUNDLED_NODE = $FALSE
   $script:NPM_SCRIPT_PATH = "npm"
 } else {
-  $script:ATOM_LINT_WITH_BUNDLED_NODE = true
+  $script:ATOM_LINT_WITH_BUNDLED_NODE = $TRUE
 }
 
 function DownloadAtom() {
@@ -47,10 +47,11 @@ function Unzip
 
 function PrintVersions() {
     Write-Host -NoNewLine "Using Atom version: "
-    & "$script:ATOM_EXE_PATH" --version
+    $atomVer = & "$script:ATOM_EXE_PATH" --version | Out-String
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
+    Write-Host $atomVer
     Write-Host "Using APM version: "
     & "$script:APM_SCRIPT_PATH" -v
     if ($LASTEXITCODE -ne 0) {
@@ -64,7 +65,7 @@ function InstallPackage() {
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
-    if ($script:ATOM_LINT_WITH_BUNDLED_NODE) {
+    if ($script:ATOM_LINT_WITH_BUNDLED_NODE -eq $TRUE) {
       & "$script:APM_SCRIPT_PATH" install
       # Set the PATH to include the node.exe bundled with APM
       $newPath = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin;$env:PATH"
@@ -216,7 +217,7 @@ function RunSpecs() {
     $testpathexists = Test-Path $testpath
     if (!$specpathexists -and !$testpathexists) {
         Write-Host "Missing spec folder! Please consider adding a test suite in '.\spec' or in '\.test'"
-        ExitWithCode -exitcode 1
+        return
     }
     Write-Host "Running specs..."
     if ($specpathexists) {
