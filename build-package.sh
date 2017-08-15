@@ -49,8 +49,13 @@ elif [ "${CIRCLECI}" = "true" ]; then
       sudo dpkg --install atom-amd64.deb || true
       sudo apt-get update
       sudo apt-get --fix-broken --assume-yes --quiet install
-      export ATOM_SCRIPT_PATH="atom"
-      export APM_SCRIPT_PATH="apm"
+      if [ "${ATOM_CHANNEL}" = "stable" ]; then
+        export ATOM_SCRIPT_PATH="atom"
+        export APM_SCRIPT_PATH="apm"
+      else
+        export ATOM_SCRIPT_PATH="atom-${ATOM_CHANNEL}"
+        export APM_SCRIPT_PATH="apm-${ATOM_CHANNEL}"
+      fi
       export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
       ;;
     osx)
