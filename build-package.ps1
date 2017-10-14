@@ -135,7 +135,9 @@ function RunLinters() {
     $lintwitheslint = HasLinter -LinterName "eslint"
     $standardpath = "$script:PACKAGE_FOLDER\node_modules\.bin\standard.cmd"
     $lintwithstandard = HasLinter -LinterName "standard"
-    if (($libpathexists -or $srcpathexists) -and ($lintwithcoffeelint -or $lintwitheslint -or $lintwithstandard)) {
+    $tslintpath = "$script:PACKAGE_FOLDER\node_modules\.bin\tslint.cmd"
+    $lintwithtslint = HasLinter -LinterName "tslint"
+    if (($libpathexists -or $srcpathexists) -and ($lintwithcoffeelint -or $lintwitheslint -or $lintwithstandard -or $lintwithtslint)) {
         Write-Host "Linting package..."
     }
 
@@ -156,6 +158,23 @@ function RunLinters() {
 
         if ($lintwithstandard) {
             & "$standardpath" lib/**/*.js
+            if ($LASTEXITCODE -ne 0) {
+                ExitWithCode -exitcode $LASTEXITCODE
+            }
+        }
+
+        if ($lintwithtslint) {
+            if (Test-Path tsconfig.json) {
+                Write-Host "Found tsconfig.json in project root directory, enabling type checking..."
+                & "$tslintpath" --project tsconfig.json --type-check
+            }
+            elseif (Test-Path lib\tsconfig.json) {
+                Write-Host "Found tsconfig.json in lib directory, enabling type checking..."
+                & "$tslintpath" --project lib\tsconfig.json --type-check
+            } else {
+                Write-Host "No tsconfig.json found for lib directory, disabling type checking..."
+                & "$tslintpath" lib
+            }
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
             }
@@ -183,9 +202,26 @@ function RunLinters() {
                 ExitWithCode -exitcode $LASTEXITCODE
             }
         }
+
+        if ($lintwithtslint) {
+            if (Test-Path tsconfig.json) {
+                Write-Host "Found tsconfig.json in project root directory, enabling type checking..."
+                & "$tslintpath" --project tsconfig.json --type-check
+            }
+            elseif (Test-Path lib\tsconfig.json) {
+                Write-Host "Found tsconfig.json in src directory, enabling type checking..."
+                & "$tslintpath" --project src\tsconfig.json --type-check
+            } else {
+                Write-Host "No tsconfig.json found for src directory, disabling type checking..."
+                & "$tslintpath" src
+            }
+            if ($LASTEXITCODE -ne 0) {
+                ExitWithCode -exitcode $LASTEXITCODE
+            }
+        }
     }
 
-    if ($specpathexists -and ($lintwithcoffeelint -or $lintwitheslint -or $lintwithstandard)) {
+    if ($specpathexists -and ($lintwithcoffeelint -or $lintwitheslint -or $lintwithstandard -or $lintwithtslint)) {
         Write-Host "Linting package specs..."
         if ($lintwithcoffeelint) {
             & "$coffeelintpath" spec
@@ -203,6 +239,19 @@ function RunLinters() {
 
         if ($lintwithstandard) {
             & "$standardpath" spec/**/*.js
+            if ($LASTEXITCODE -ne 0) {
+                ExitWithCode -exitcode $LASTEXITCODE
+            }
+        }
+
+        if ($lintwithtslint) {
+            if (Test-Path spec\tsconfig.json) {
+                Write-Host "Found tsconfig.json in spec directory, enabling type checking..."
+                & "$tslintpath" --project spec\tsconfig.json --type-check
+            } else {
+                Write-Host "No tsconfig.json found for spec directory, disabling type checking..."
+                & "$tslintpath" spec
+            }
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
             }
