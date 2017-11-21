@@ -176,6 +176,11 @@ if has_linter "standard"; then
     ./node_modules/.bin/standard "spec/**/*.js"
     rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
   fi
+  if [ -d ./test ]; then
+    echo "Linting package tests using standard..."
+    ./node_modules/.bin/standard "test/**/*.js"
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
+  fi
 fi
 
 if [ -d ./spec ]; then
