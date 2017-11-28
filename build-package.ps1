@@ -129,6 +129,8 @@ function RunLinters() {
     $srcpathexists = Test-Path $srcpath
     $specpath = "$script:PACKAGE_FOLDER\spec"
     $specpathexists = Test-Path $specpath
+    $testpath = "$script:PACKAGE_FOLDER\test"
+    $testpathexists = Test-Path $testpath
     $coffeelintpath = "$script:PACKAGE_FOLDER\node_modules\.bin\coffeelint.cmd"
     $lintwithcoffeelint = HasLinter -LinterName "coffeelint"
     $eslintpath = "$script:PACKAGE_FOLDER\node_modules\.bin\eslint.cmd"
@@ -203,6 +205,30 @@ function RunLinters() {
 
         if ($lintwithstandard) {
             & "$standardpath" spec/**/*.js
+            if ($LASTEXITCODE -ne 0) {
+                ExitWithCode -exitcode $LASTEXITCODE
+            }
+        }
+    }
+
+    if ($testpathexists -and ($lintwithcoffeelint -or $lintwitheslint -or $lintwithstandard)) {
+        Write-Host "Linting package tests..."
+        if ($lintwithcoffeelint) {
+            & "$coffeelintpath" test
+            if ($LASTEXITCODE -ne 0) {
+                ExitWithCode -exitcode $LASTEXITCODE
+            }
+        }
+
+        if ($lintwitheslint) {
+            & "$eslintpath" test
+            if ($LASTEXITCODE -ne 0) {
+                ExitWithCode -exitcode $LASTEXITCODE
+            }
+        }
+
+        if ($lintwithstandard) {
+            & "$standardpath" test/**/*.js
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
             }
