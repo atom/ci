@@ -9,7 +9,7 @@ if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
     -o "atom.zip"
   mkdir atom
   unzip -q atom.zip -d atom
-  if [ "${ATOM_CHANNEL}" = "stable" ]; then
+  if [ "${ATOM_CHANNEL}" = "stable" ] || [ "${ATOM_CHANNEL}" = "dev" ]; then
     export ATOM_APP_NAME="Atom.app"
     export ATOM_SCRIPT_NAME="atom.sh"
     export ATOM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh"
