@@ -1,10 +1,15 @@
 Set-StrictMode -Version Latest
 $script:PACKAGE_FOLDER = "$env:APPVEYOR_BUILD_FOLDER"
 Set-Location $script:PACKAGE_FOLDER
-$script:ATOM_CHANNEL = "stable"
+
+if ($env:ATOM_CHANNEL) {
+  $script:ATOM_CHANNEL = "$env:ATOM_CHANNEL"
+} else {
+  $script:ATOM_CHANNEL = "stable"
+}
+
 $script:ATOM_DIRECTORY_NAME = "Atom"
-if ($env:ATOM_CHANNEL -and ($env:ATOM_CHANNEL.tolower() -ne "stable")) {
-    $script:ATOM_CHANNEL = "$env:ATOM_CHANNEL"
+if (($script:ATOM_CHANNEL.tolower() -ne "stable") -and ($script:ATOM_CHANNEL.tolower() -ne "dev")) {
     $script:ATOM_DIRECTORY_NAME = "$script:ATOM_DIRECTORY_NAME "
     $script:ATOM_DIRECTORY_NAME += $script:ATOM_CHANNEL.substring(0,1).toupper()
     $script:ATOM_DIRECTORY_NAME += $script:ATOM_CHANNEL.substring(1).tolower()
