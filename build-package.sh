@@ -49,7 +49,7 @@ elif [ "${CIRCLECI}" = "true" ]; then
       sudo dpkg --install atom-amd64.deb || true
       sudo apt-get update
       sudo apt-get --fix-broken --assume-yes --quiet install
-      if [ "${ATOM_CHANNEL}" = "stable" ]; then
+      if [ "${ATOM_CHANNEL}" = "stable" ] || [ "${ATOM_CHANNEL}" = "dev" ]; then
         export ATOM_SCRIPT_PATH="atom"
         export APM_SCRIPT_PATH="apm"
       else
