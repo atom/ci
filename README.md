@@ -4,7 +4,7 @@ Templates for building your Atom package and running its specs:
 
 * macOS and Ubuntu Linux: Using [Travis CI](https://travis-ci.org)
 * Windows: Using [Appveyor](https://appveyor.com)
-* Ubuntu Linux: Using [CircleCI](https://circleci.com)
+* Ubuntu Linux / Docker: Using [CircleCI](https://circleci.com)
 
 ## Setting up CI for your package
 
@@ -30,15 +30,19 @@ Templates for building your Atom package and running its specs:
 ### CircleCI
 
 * Sign up for an account on [CircleCI](https://circleci.com)
-* [Add a new project](https://circleci.com/docs/getting-started)
-* Copy [circle.yml](https://raw.githubusercontent.com/atom/ci/master/circle.yml) to the root of your package's repository
-* :boom: Your package will now build and run its specs; you can see an example of a configured package [here](https://circleci.com/gh/AtomLinter/linter-stylelint)
+* Create a `.circleci` directory at the root of your project
+* Copy [config.yml](https://raw.githubusercontent.com/atom/ci/master/.circleci/config.yml)
+  to the new directory
+* Commit the changes and push them up to GitHub
+* [Add a new project](https://circleci.com/docs/2.0/hello-world/) on CircleCI
+* :boom: Your package will now build and run its specs; you can see an example
+  of a configured package [here](https://circleci.com/gh/AtomLinter/linter-stylelint)
 
 ## FAQ
 
 ### How do I install other Atom packages that my package build depends on?
 
-Set the `APM_TEST_PACKAGES` environment variable in your `.travis.yml` or `circle.yml` file
+Set the `APM_TEST_PACKAGES` environment variable in your `.travis.yml` or `.circleci/config.yml` file
 to a space-separated list of packages to install before your package's tests
 run.
 
@@ -76,7 +80,7 @@ package's specs.
 
 #### CircleCI
 
-The `circle.yml` template runs the same script that is used in the Travis-CI builds.
+The `.circleci/config.yml` template runs the same script that is used in the Travis-CI builds.
 
 
 ### What does the output look like?

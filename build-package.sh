@@ -42,22 +42,6 @@ elif [ "${TRAVIS_OS_NAME}" = "linux" ]; then
   export NPM_SCRIPT_PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/node_modules/.bin/npm"
 elif [ "${CIRCLECI}" = "true" ]; then
   case "${CIRCLE_BUILD_IMAGE}" in
-    ubuntu*)
-      curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
-        -H 'Accept: application/octet-stream' \
-        -o "atom-amd64.deb"
-      sudo dpkg --install atom-amd64.deb || true
-      sudo apt-get update
-      sudo apt-get --fix-broken --assume-yes --quiet install
-      if [ "${ATOM_CHANNEL}" = "stable" ] || [ "${ATOM_CHANNEL}" = "dev" ]; then
-        export ATOM_SCRIPT_PATH="atom"
-        export APM_SCRIPT_PATH="apm"
-      else
-        export ATOM_SCRIPT_PATH="atom-${ATOM_CHANNEL}"
-        export APM_SCRIPT_PATH="apm-${ATOM_CHANNEL}"
-      fi
-      export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
-      ;;
     osx)
       curl -s -L "https://atom.io/download/mac?channel=${ATOM_CHANNEL}" \
         -H 'Accept: application/octet-stream' \
@@ -83,8 +67,21 @@ elif [ "${CIRCLECI}" = "true" ]; then
       osascript -e 'tell application "System Events" to keystroke "x"'
       ;;
     *)
-      echo "Unsupported CircleCI OS: ${CIRCLE_BUILD_IMAGE}" >&2
-      exit 1
+      # Assume the build is on a Debian based image (Circle CI provided Linux images)
+      curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
+        -H 'Accept: application/octet-stream' \
+        -o "atom-amd64.deb"
+      sudo dpkg --install atom-amd64.deb || true
+      sudo apt-get update
+      sudo apt-get --fix-broken --assume-yes --quiet install
+      if [ "${ATOM_CHANNEL}" = "stable" ] || [ "${ATOM_CHANNEL}" = "dev" ]; then
+        export ATOM_SCRIPT_PATH="atom"
+        export APM_SCRIPT_PATH="apm"
+      else
+        export ATOM_SCRIPT_PATH="atom-${ATOM_CHANNEL}"
+        export APM_SCRIPT_PATH="apm-${ATOM_CHANNEL}"
+      fi
+      export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
       ;;
     esac
 else
