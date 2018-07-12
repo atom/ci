@@ -9,7 +9,7 @@ if ($env:ATOM_CHANNEL) {
 }
 
 $script:ATOM_DIRECTORY_NAME = "Atom"
-if (($script:ATOM_CHANNEL.tolower() -ne "stable") -and ($script:ATOM_CHANNEL.tolower() -ne "dev")) {
+if ($script:ATOM_CHANNEL.tolower() -ne "stable") {
     $script:ATOM_DIRECTORY_NAME = "$script:ATOM_DIRECTORY_NAME "
     $script:ATOM_DIRECTORY_NAME += $script:ATOM_CHANNEL.substring(0,1).toupper()
     $script:ATOM_DIRECTORY_NAME += $script:ATOM_CHANNEL.substring(1).tolower()

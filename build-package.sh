@@ -9,7 +9,7 @@ if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
     -o "atom.zip"
   mkdir atom
   unzip -q atom.zip -d atom
-  if [ "${ATOM_CHANNEL}" = "stable" ] || [ "${ATOM_CHANNEL}" = "dev" ]; then
+  if [ "${ATOM_CHANNEL}" = "stable" ]; then
     export ATOM_APP_NAME="Atom.app"
     export ATOM_SCRIPT_NAME="atom.sh"
     export ATOM_SCRIPT_PATH="./atom/${ATOM_APP_NAME}/Contents/Resources/app/atom.sh"
@@ -30,7 +30,7 @@ elif [ "${TRAVIS_OS_NAME}" = "linux" ]; then
   /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
   export DISPLAY=":99"
   dpkg-deb -x atom-amd64.deb "${HOME}/atom"
-  if [ "${ATOM_CHANNEL}" = "stable" ] || [ "${ATOM_CHANNEL}" = "dev" ]; then
+  if [ "${ATOM_CHANNEL}" = "stable" ]; then
     export ATOM_SCRIPT_NAME="atom"
     export APM_SCRIPT_NAME="apm"
   else
