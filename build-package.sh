@@ -132,7 +132,7 @@ if [ -n "${APM_TEST_PACKAGES}" ]; then
 fi
 
 has_linter() {
-  ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null | grep -q "$1"
+  ${NPM_SCRIPT_PATH} ls --parseable --dev --depth=0 "$1" 2> /dev/null | grep -q "$1$"
 }
 
 if has_linter "coffeelint"; then
