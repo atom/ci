@@ -130,17 +130,18 @@ function RunLinters() {
     $specpath = "$script:PACKAGE_FOLDER\spec"
     $specpathexists = Test-Path $specpath
     $coffeelintpath = "$script:PACKAGE_FOLDER\node_modules\.bin\coffeelint.cmd"
-    $lintwithcoffeelint = HasLinter -LinterName "coffeelint"
+    $lintwithcoffeelint = (-not (Test-Path env:ATOM_LINT_WITH) -or $env:ATOM_LINT_WITH.tolower() -eq "coffeelint")
+    $lintwithcoffeelint = ($lintwithcoffeelint -and (HasLinter -LinterName "coffeelint"))
     $eslintpath = "$script:PACKAGE_FOLDER\node_modules\.bin\eslint.cmd"
-    $lintwitheslint = HasLinter -LinterName "eslint"
+    $lintwitheslint = (-not (Test-Path env:ATOM_LINT_WITH) -or $env:ATOM_LINT_WITH.tolower() -eq "eslint")
+    $lintwitheslint = ($lintwitheslint -and (HasLinter -LinterName "eslint"))
     $standardpath = "$script:PACKAGE_FOLDER\node_modules\.bin\standard.cmd"
-    $lintwithstandard = HasLinter -LinterName "standard"
-    if (($libpathexists -or $srcpathexists) -and ($lintwithcoffeelint -or $lintwitheslint -or $lintwithstandard)) {
-        Write-Host "Linting package..."
-    }
+    $lintwithstandard = (-not (Test-Path env:ATOM_LINT_WITH) -or $env:ATOM_LINT_WITH.tolower() -eq "standard")
+    $lintwithstandard = ($lintwithstandard -and (HasLinter -LinterName "standard"))
 
     if ($libpathexists) {
         if ($lintwithcoffeelint) {
+            Write-Host "Linting package using coffeescript..."
             & "$coffeelintpath" lib
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
@@ -148,6 +149,7 @@ function RunLinters() {
         }
 
         if ($lintwitheslint) {
+            Write-Host "Linting package using eslint..."
             & "$eslintpath" lib
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
@@ -155,6 +157,7 @@ function RunLinters() {
         }
 
         if ($lintwithstandard) {
+            Write-Host "Linting package using standard..."
             & "$standardpath" lib/**/*.js
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
@@ -164,6 +167,7 @@ function RunLinters() {
 
     if ($srcpathexists) {
         if ($lintwithcoffeelint) {
+            Write-Host "Linting package using coffeelint..."
             & "$coffeelintpath" src
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
@@ -171,6 +175,7 @@ function RunLinters() {
         }
 
         if ($lintwitheslint) {
+            Write-Host "Linting package using eslint..."
             & "$eslintpath" src
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
@@ -178,6 +183,7 @@ function RunLinters() {
         }
 
         if ($lintwithstandard) {
+            Write-Host "Linting package using standard..."
             & "$standardpath" src/**/*.js
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
@@ -185,9 +191,9 @@ function RunLinters() {
         }
     }
 
-    if ($specpathexists -and ($lintwithcoffeelint -or $lintwitheslint -or $lintwithstandard)) {
-        Write-Host "Linting package specs..."
+    if ($specpathexists) {
         if ($lintwithcoffeelint) {
+            Write-Host "Linting package specs using coffeelint..."
             & "$coffeelintpath" spec
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
@@ -195,6 +201,7 @@ function RunLinters() {
         }
 
         if ($lintwitheslint) {
+            Write-Host "Linting package specs using eslint..."
             & "$eslintpath" spec
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
@@ -202,6 +209,7 @@ function RunLinters() {
         }
 
         if ($lintwithstandard) {
+            Write-Host "Linting package specs using standard..."
             & "$standardpath" spec/**/*.js
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
