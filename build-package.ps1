@@ -89,7 +89,7 @@ function InstallPackage() {
           ExitWithCode -exitcode $LASTEXITCODE
       }
       Write-Host "Installing remaining dependencies..."
-      & npm ci
+      & npm install
     }
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
