@@ -95,10 +95,9 @@ echo "Using APM version:"
 "${APM_SCRIPT_PATH}" -v
 
 echo "Downloading package dependencies..."
-"${APM_SCRIPT_PATH}" clean
 
 if [ "${ATOM_LINT_WITH_BUNDLED_NODE:=true}" = "true" ]; then
-  "${APM_SCRIPT_PATH}" install
+  "${APM_SCRIPT_PATH}" ci
 
   # Override the PATH to put the Node bundled with APM first
   if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
@@ -113,7 +112,7 @@ if [ "${ATOM_LINT_WITH_BUNDLED_NODE:=true}" = "true" ]; then
   fi
 else
   export NPM_SCRIPT_PATH="npm"
-  "${APM_SCRIPT_PATH}" install --production
+  "${APM_SCRIPT_PATH}" ci --production
 
   # Use the system NPM to install the devDependencies
   echo "Using Node version:"
