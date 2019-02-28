@@ -66,18 +66,14 @@ function PrintVersions() {
 
 function InstallPackage() {
     Write-Host "Downloading package dependencies..."
-    & "$script:APM_SCRIPT_PATH" clean
-    if ($LASTEXITCODE -ne 0) {
-        ExitWithCode -exitcode $LASTEXITCODE
-    }
     if ($script:ATOM_LINT_WITH_BUNDLED_NODE -eq $TRUE) {
-      & "$script:APM_SCRIPT_PATH" install
+      & "$script:APM_SCRIPT_PATH" ci
       # Set the PATH to include the node.exe bundled with APM
       $newPath = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin;$env:PATH"
       $env:PATH = $newPath
       [Environment]::SetEnvironmentVariable("PATH", "$newPath", "User")
     } else {
-      & "$script:APM_SCRIPT_PATH" install --production
+      & "$script:APM_SCRIPT_PATH" ci --production
       if ($LASTEXITCODE -ne 0) {
           ExitWithCode -exitcode $LASTEXITCODE
       }
@@ -93,7 +89,7 @@ function InstallPackage() {
           ExitWithCode -exitcode $LASTEXITCODE
       }
       Write-Host "Installing remaining dependencies..."
-      & npm install
+      & npm ci
     }
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
