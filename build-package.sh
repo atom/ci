@@ -97,7 +97,13 @@ echo "Using APM version:"
 echo "Downloading package dependencies..."
 
 if [ "${ATOM_LINT_WITH_BUNDLED_NODE:=true}" = "true" ]; then
-  "${APM_SCRIPT_PATH}" ci
+  if [ -f "package-lock.json" ]; then
+    "${APM_SCRIPT_PATH}" ci
+  else
+    echo "Warning: package-lock.json not found; running apm install instead of apm ci"
+    "${APM_SCRIPT_PATH}" install
+    "${APM_SCRIPT_PATH}" clean
+  fi
 
   # Override the PATH to put the Node bundled with APM first
   if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
@@ -112,7 +118,13 @@ if [ "${ATOM_LINT_WITH_BUNDLED_NODE:=true}" = "true" ]; then
   fi
 else
   export NPM_SCRIPT_PATH="npm"
-  "${APM_SCRIPT_PATH}" ci --production
+  if [ -f "package-lock.json" ]; then
+    "${APM_SCRIPT_PATH}" ci --production
+  else
+    echo "Warning: package-lock.json not found; running apm install instead of apm ci"
+    "${APM_SCRIPT_PATH}" install --production
+    "${APM_SCRIPT_PATH}" clean
+  fi
 
   # Use the system NPM to install the devDependencies
   echo "Using Node version:"
