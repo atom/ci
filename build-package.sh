@@ -40,6 +40,7 @@ elif [ "${TRAVIS_OS_NAME}" = "linux" ]; then
   export ATOM_SCRIPT_PATH="${HOME}/atom/usr/bin/${ATOM_SCRIPT_NAME}"
   export APM_SCRIPT_PATH="${HOME}/atom/usr/bin/${APM_SCRIPT_NAME}"
   export NPM_SCRIPT_PATH="${HOME}/atom/usr/share/${ATOM_SCRIPT_NAME}/resources/app/apm/node_modules/.bin/npm"
+  export PATH="${PATH}:${HOME}/atom/usr/bin"
 elif [ "${CIRCLECI}" = "true" ]; then
   case "${CIRCLE_BUILD_IMAGE}" in
     osx)
