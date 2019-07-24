@@ -9,14 +9,18 @@ if ($env:ATOM_CHANNEL) {
 }
 
 $script:ATOM_DIRECTORY_NAME = "Atom"
+$script:ATOM_EXE_NAME = "atom"
 if ($script:ATOM_CHANNEL.tolower() -ne "stable") {
     $script:ATOM_DIRECTORY_NAME = "$script:ATOM_DIRECTORY_NAME "
     $script:ATOM_DIRECTORY_NAME += $script:ATOM_CHANNEL.substring(0,1).toupper()
     $script:ATOM_DIRECTORY_NAME += $script:ATOM_CHANNEL.substring(1).tolower()
+
+    $script:ATOM_EXE_NAME += "-"
+    $script:ATOM_EXE_NAME += $script:ATOM_CHANNEL.tolower()
 }
 
-$script:ATOM_EXE_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\atom.exe"
-$script:ATOM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\cli\atom.cmd"
+$script:ATOM_EXE_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\$script:ATOM_EXE_NAME.exe"
+$script:ATOM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\cli\$script:ATOM_EXE_NAME.cmd"
 $script:APM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin\apm.cmd"
 $script:NPM_SCRIPT_PATH = "$script:PACKAGE_FOLDER\$script:ATOM_DIRECTORY_NAME\resources\app\apm\node_modules\.bin\npm.cmd"
 
