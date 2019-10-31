@@ -8,7 +8,6 @@ jobs:
       # Configurable
       ATOM_LINT_WITH_BUNDLED_NODE: "true"
       APM_TEST_PACKAGES: ""
-      ATOM_CHANNEL: "stable"
     # Machine Setup
     # The following configuration line tells CircleCI to use the specified
     # docker image as the runtime environment for your job.
@@ -37,7 +36,16 @@ jobs:
         name: Make build script executable
         command: chmod u+x build-package.sh
     - run:
-        name: Run package tests
+        name: Run package tests on stable channel
         command: ./build-package.sh
     # On MacOS:
     # - run: caffeinate -s build-package.sh
+        environment:
+          ATOM_CHANNEL: "stable"
+    - run:
+        name: Run package tests on beta channel
+        command: ./build-package.sh
+    # On MacOS:
+    # - run: caffeinate -s build-package.sh
+        environment:
+          ATOM_CHANNEL: "beta"
