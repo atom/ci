@@ -2,7 +2,7 @@
 
 Templates for building your Atom package and running its specs:
 
-* macOS and Ubuntu Linux: Using [GitHub Actions](https://github.com/features/actions)
+* Windows, macOS and Ubuntu Linux: Using [GitHub Actions](https://github.com/features/actions)
 * macOS and Ubuntu Linux: Using [Travis CI](https://travis-ci.org)
 * Windows: Using [Appveyor](https://appveyor.com)
 * Ubuntu Linux / Docker: Using [CircleCI](https://circleci.com)
