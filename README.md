@@ -95,5 +95,5 @@ package's specs.
 
 ### What packages use this?
 
-* [GitHub Actions, Travis CI, CircleCI](https://github.com/search?utf8=%E2%9C%93&q=%22curl+-s+https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+|+sh%22+extension%3Ayml&type=Code)
-* [Appveyor](https://github.com/search?q="cinst+atom"+extension%3Ayml&type=Code)
+* [Linux, macOS](https://github.com/search?utf8=%E2%9C%93&q=%22curl+-s+https%3A%2F%2Fraw.githubusercontent.com%2Fatom%2Fci%2Fmaster%2Fbuild-package.sh+|+sh%22+extension%3Ayml&type=Code)
+* [Windows](https://github.com/search?q="cinst+atom"+extension%3Ayml&type=Code)
