@@ -42,3 +42,17 @@ jobs:
 
     - name: Build package
       run: ./build-package.sh
+
+  build-windows:
+    runs-on:
+      - windows-latest
+
+    env:
+      ATOM_LINT_WITH_BUNDLED_NODE: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Run package script
+        run: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/atom/ci/master/build-package.ps1'))
