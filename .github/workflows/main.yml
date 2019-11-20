@@ -2,85 +2,30 @@ name: CI
 
 on: [push]
 
+env:
+  CI: true
+
 jobs:
-  build-linux-stable:
-    runs-on: ubuntu-latest
-    env:
-      TRAVIS_OS_NAME: linux
-      ATOM_CHANNEL: stable
+  Test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        channel: [stable, beta]
+    runs-on: ${{ matrix.os }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Get package script
-      run: curl -s -O https://raw.githubusercontent.com/atom/ci/master/build-package.sh
-    - name: Set script permissions
-      run: chmod u+x build-package.sh
-    - name: Build package
-      run: ./build-package.sh
-
-  build-linux-beta:
-    runs-on: ubuntu-latest
-    env:
-      TRAVIS_OS_NAME: linux
-      ATOM_CHANNEL: beta
-    steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Get package script
-      run: curl -s -O https://raw.githubusercontent.com/atom/ci/master/build-package.sh
-    - name: Set script permissions
-      run: chmod u+x build-package.sh
-    - name: Build package
-      run: ./build-package.sh
-
-  build-macos-stable:
-    runs-on: macOS-latest
-    env:
-      TRAVIS_OS_NAME: osx
-      ATOM_CHANNEL: stable
-    steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Get package script
-      run: curl -s -O https://raw.githubusercontent.com/atom/ci/master/build-package.sh
-    - name: Set script permissions
-      run: chmod u+x build-package.sh
-    - name: Build package
-      run: ./build-package.sh
-
-  build-macos-beta:
-    runs-on: macOS-latest
-    env:
-      TRAVIS_OS_NAME: osx
-      ATOM_CHANNEL: beta
-    steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Get package script
-      run: curl -s -O https://raw.githubusercontent.com/atom/ci/master/build-package.sh
-    - name: Set script permissions
-      run: chmod u+x build-package.sh
-    - name: Build package
-      run: ./build-package.sh
-
-  build-windows-stable:
-    runs-on: windows-latest
-    env:
-      ATOM_LINT_WITH_BUNDLED_NODE: true
-      ATOM_CHANNEL: stable
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Run package script
-        run: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/atom/ci/master/build-package.ps1'))
-
-  build-windows-beta:
-    runs-on: windows-latest
-    env:
-      ATOM_LINT_WITH_BUNDLED_NODE: true
-      ATOM_CHANNEL: beta
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Run package script
-        run: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/atom/ci/master/build-package.ps1'))
+    - uses: actions/checkout@v1
+    - uses: UziTech/action-setup-atom@v1
+      with:
+        channel: ${{ matrix.channel }}
+    - name: Atom version
+      run: atom -v
+    - name: APM version
+      run: apm -v
+    - name: Install dependencies
+      run: apm install
+    - name: Run coffeelint
+      run: ./node_modules/.bin/coffeelint spec
+    - name: Run standard
+      run: ./node_modules/.bin/standard "spec/**/*.js"
+    - name: Run tests
+      run: atom --test spec
