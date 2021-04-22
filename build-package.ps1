@@ -35,7 +35,9 @@ function DownloadAtom() {
     Write-Host "Downloading latest Atom release..."
     $source = "https://atom.io/download/windows_zip?channel=$script:ATOM_CHANNEL"
     $destination = "$script:PACKAGE_FOLDER\atom.zip"
-    appveyor DownloadFile $source -FileName $destination
+
+    Invoke-WebRequest -Uri $source -OutFile $destination
+
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
