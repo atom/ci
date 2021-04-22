@@ -73,7 +73,7 @@ can run `apm help test` to learn more about that command.
 
 #### GitHub Actions
 
-The CI template uses the [Atom setup Action](UziTech/action-setup-atom@v1) to
+The CI template uses the [Atom setup Action](https://github.com/marketplace/actions/setup-atom) to
 install and set up Atom on a runner. The script then installs dependencies from
 your package and runs the `apm test` command to run your package's specs.
 
