@@ -19,9 +19,5 @@ jobs:
         version: ${{ matrix.channel }}
     - name: Install dependencies
       run: apm install
-    - name: Run coffeelint
-      run: ./node_modules/.bin/coffeelint spec
-    - name: Run standard
-      run: ./node_modules/.bin/standard "spec/**/*.js"
     - name: Run tests
       run: atom --test spec
