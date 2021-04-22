@@ -191,6 +191,36 @@ if has_linter "standard"; then
   fi
 fi
 
+if has_linter "tslint"; then
+  if [ -e ./tsconfig.json ]; then
+    echo "Linting package using tslint..."
+    echo "Found tsconfig.json in project root directory, enabling type checking..."
+    ./node_modules/bin/tslint --project tsconfig.json --type-check
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
+  elif [ -d ./lib ]; then
+    echo "Linting package using tslint..."
+    if [ -e ./lib/tsconfig.json ]; then
+      echo "Found tsconfig.json in lib directory, enabling type checking..."
+      ./node_modules/.bin/tslint --project lib/tsconfig.json --type-check
+    else
+      echo "No tsconfig.json found for lib directory, disabling type checking..."
+      ./node_modules/.bin/tslint lib
+    fi
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
+  fi
+  if [ -d ./spec ]; then
+    echo "Linting package specs using tslint..."
+    if [ -e ./spec/tsconfig.json ]; then
+      echo "Found tsconfig.json in spec directory, enabling type checking..."
+      ./node_modules/.bin/tslint --project spec/tsconfig.json --type-check
+    else
+      echo "No tsconfig.json found in spec directory, disabling type checking..."
+      ./node_modules/.bin/tslint spec
+    fi
+    rc=$?; if [ $rc -ne 0 ]; then exit $rc; fi
+  fi
+fi
+
 if [ -d ./spec ]; then
   echo "Running specs..."
   "${ATOM_SCRIPT_PATH}" --test spec
