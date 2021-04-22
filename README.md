@@ -94,7 +94,6 @@ package's specs.
 
 ### What does the output look like?
 
--   [macOS @ GitHub Actions](https://github.com/thumperward/auto-create-files/commit/fefbe1e6c9fc15e000eec5904576d55c254e7d76/checks?check_suite_id=293486056)
 -   [macOS @ Travis CI](https://travis-ci.org/atom/wrap-guide/builds/23774579)
 -   [Windows @ Appveyor](https://ci.appveyor.com/project/Atom/wrap-guide/build/12)
 -   [Ubuntu Linux @ CircleCI](https://circleci.com/gh/AtomLinter/linter-stylelint/623)
